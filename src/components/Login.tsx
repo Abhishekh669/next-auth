@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SignInValidation } from "@/types/user.types";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -40,16 +41,21 @@ function Page() {
     } catch (error) {
       console.log("failed to login (client side)");
     }
-  };
+  };  
 
   return (
     <div className="h-screen flex items-center justify-center bg-[#f7f7f7]">
-      {error && <span className="text-red-500 text-sm mb-4">{error}</span>}
       <div className="max-w-md p-12 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        <form onSubmit={handleSubmit(loginFun)}>
+        <h2 className="text-2xl font-bold mb-10 ">Login</h2>
+        <div className="relative  flex flex-col gap-y-4">
+          <div className="absolute -top-8 w-full  text-center">
+            {error && (
+              <span className=" text-red-500 text-sm mb-4">{error}</span>
+            )}
+          </div>
           <div className="mb-4">
             <Input
+              className="w-full p-3 border border-gray-300 rounded-md"
               type="email"
               placeholder="Email"
               {...register("email", {
@@ -59,10 +65,9 @@ function Page() {
                   message: "Invalid email address",
                 },
               })}
-              className="w-full p-3 border border-gray-300 rounded-md"
             />
             {errors.email && (
-              <span className="text-red-500 text-sm">
+              <span className="text-red-500 text-sm italic absolute mt-1 ml-1">
                 {errors.email.message}
               </span>
             )}
@@ -89,12 +94,20 @@ function Page() {
             )}
           </div>
           <Button
-            type="submit"
-            className="w-full p-3 bg-[#3498db] text-white rounded-md"
+            onClick={handleSubmit(loginFun)}
+            className="w-full p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
           >
             Login
           </Button>
-        </form>
+          <div className="my-4">
+            <span>
+              Didn't have account?{" "}
+              <Link className="text-blue-500 underline" href="sign-up">
+                create
+              </Link>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

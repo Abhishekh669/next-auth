@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { errorRes, sucessRes } from "@/types/error.types";
 import { SignUpValidation } from "@/types/user.types";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -42,12 +43,16 @@ function Page() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-white">
-      {error && <span className="text-blue-500 text-sm italic">{error}</span>}
 
-      <div className="max-w-md p-12 rounded-lg shadow-md md:p-16 lg:p-20">
+      <div className=" w-[25rem] p-8 flex flex-col  gap-y-4 rounded-lg shadow-md md:p-14 lg:p-14">
+        <h2 className="text-2xl font-bold mb-4 text-blue-600 text-[40px] ">
+          Create an account
+        </h2>
+
+      {error && <span className="text-red-500 text-sm italic">{error}</span>}
         <div className="mb-4">
           <Input
-            className="w-full p-3 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-md"
             type="text"
             placeholder="Name"
             {...register("name", {
@@ -55,14 +60,14 @@ function Page() {
             })}
           />
           {errors.name && (
-            <span className="text-blue-500 text-sm italic absolute mt-2 ml-1">
+            <span className="text-red-500 text-sm italic absolute mt-2 ml-1">
               {errors.name.message}
             </span>
           )}
         </div>
         <div className="mb-4">
           <Input
-            className="w-full p-3 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-md"
             type="text"
             placeholder="Username"
             {...register("username", {
@@ -76,14 +81,14 @@ function Page() {
           />
 
           {errors.username && (
-            <span className="text-blue-500 text-sm italic absolute mt-2 ml-1">
+            <span className="text-red-500 text-sm italic absolute mt-2 ml-1">
               {errors.username.message}
             </span>
           )}
         </div>
         <div className="mb-4">
           <Input
-            className="w-full p-3 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-md"
             type="email"
             placeholder="Email"
             {...register("email", {
@@ -95,14 +100,14 @@ function Page() {
             })}
           />
           {errors.email && (
-            <span className="text-blue-500 text-sm italic absolute mt-2 ml-1">
+            <span className="text-red-500 text-sm italic absolute mt-2 ml-1">
               {errors.email.message}
             </span>
           )}
         </div>
         <div className="flex relative mb-4">
           <Input
-            className="w-full p-3 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-md"
             type={pass1show ? "text" : "password"}
             placeholder="Password"
             {...register("password", {
@@ -117,14 +122,14 @@ function Page() {
             {pass1show ? <EyeOff /> : <Eye />}
           </span>
           {errors.password && (
-            <span className="text-blue-500 text-sm italic absolute -bottom-6 mt-2 ml-1">
+            <span className="text-red-500 text-sm italic absolute -bottom-6 mt-2 ml-1">
               {errors.password.message}
             </span>
           )}
         </div>
         <div className="flex relative mb-4">
           <Input
-            className="w-full p-3 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-md"
             type={pass2show ? "text" : "password"}
             placeholder="confirm password"
             {...register("confirmPassword", {
@@ -138,7 +143,7 @@ function Page() {
             {pass2show ? <EyeOff /> : <Eye />}
           </span>
           {errors.confirmPassword && (
-            <span className="text-blue-500 text-sm italic absolute -bottom-6 mt-2 ml-1">
+            <span className="text-red-500 text-sm italic absolute -bottom-6 mt-2 ml-1">
               {errors.confirmPassword.message}
             </span>
           )}
@@ -150,6 +155,17 @@ function Page() {
         >
           Login
         </Button>
+        <div className="my-4 ">
+          <span>
+            Already have an account?{" "}
+            <Link
+              className="text-blue-600 underline hover:text-blue-700"
+              href="sign-in"
+            >
+              login{" "}
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
