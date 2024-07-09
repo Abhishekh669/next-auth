@@ -1,13 +1,12 @@
 import type { NextAuthConfig } from "next-auth";
 
-export const authConfig = {
-  callbacks: {
-    authorized({ auth }) {
-      const isAuthenticated = !!auth?.user;
+import { credentialsConfig } from "./auth";
 
-      return isAuthenticated;
-    },
-  },
-  providers: [],
-  secret: process.env.AUTH_SECRET! as string,
+
+export const authConfig = {
+  
+  providers: [
+    // credentialsConfig
+  ],
+  
 } satisfies NextAuthConfig;

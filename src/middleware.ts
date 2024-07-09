@@ -32,5 +32,9 @@ export default auth(async (req, res) => {
 
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/sign-in"],
+  matcher: [
+              "/dashboard/:path*",
+              "/sign-in",
+              // "/api(.*)"
+            ],
 };
