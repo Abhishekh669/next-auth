@@ -13,12 +13,13 @@ export default auth(async (req, res) => {
   const { nextUrl } = req;
   // const token = await getToken({req});
   // console.log("this is the token",token)
-
+console.log("this isthe nextUrl",nextUrl)
   const isAuthenticated = !!req.auth;
+
   console.log("Is authenticated:", isAuthenticated);
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
 
-  if (isPublicRoute && isAuthenticated) {
+  if (isPublicRoute && isAuthenticated  && nextUrl.pathname != "/") {
     return NextResponse.redirect(new URL(DEFAULT_REDIRECT, nextUrl));
   }
 
@@ -31,10 +32,13 @@ export default auth(async (req, res) => {
 });
 
 
+// export const config = {
+//   matcher: [
+//               "/dashboard/:path*",
+//               "/sign-in",
+//               // "/api(.*)"
+//             ],
+// };
 export const config = {
-  matcher: [
-              "/dashboard/:path*",
-              "/sign-in",
-              // "/api(.*)"
-            ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

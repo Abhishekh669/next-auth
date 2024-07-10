@@ -84,7 +84,6 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials";
 import { authConfig } from './auth.config';
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "./lib/db";
 import { connectDB } from './lib/connectDB';
 import { User } from './models/user.model';
 import { compare } from 'bcryptjs';
@@ -130,12 +129,11 @@ export const credentialsConfig = CredentialsProvider({
   },
 });
 export const {
-  handlers: { GET, POST },
+  handlers,
   auth,
   signIn,
   signOut,
 } = NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
   ...authConfig,
   providers : [
     credentialsConfig
