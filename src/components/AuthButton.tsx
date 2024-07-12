@@ -1,6 +1,5 @@
 "use client";
 import { useSession } from "next-auth/react";
-
 import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "@/helper";
 import { useRouter } from "next/navigation";
@@ -19,7 +18,7 @@ export default function AuthButton() {
         router.push("/sign-in");
       }}
     >
-      <LogOut className="text-white h-6 w-6 hover:Ltext-red-600  " />
+      <LogOut className="text-white h-6 w-6 hover:text-red-600  " />
     </Button>
   );
 }

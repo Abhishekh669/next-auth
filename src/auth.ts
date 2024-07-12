@@ -108,6 +108,7 @@ export const credentialsConfig = CredentialsProvider({
       console.log("this is the credentials", credentials);
       await connectDB();
       const user = await User.findOne({ email: credentials.email });
+      console.log("this is the password",user.Password)
       if (!user) {
         throw new Error("Invalid Credentails");
       }
@@ -117,11 +118,12 @@ export const credentialsConfig = CredentialsProvider({
         user.password
       );
       console.log("this is matched", isMatch);
-      if (isMatch) {
-        return user;
+      if (!isMatch) {
+        // return user;
+        throw new Error("Invalid credentails")
       }
       // throw new Error("Invalid credentials");
-      return null;
+      return user;
     } catch (error) {
       console.log("this is the error try ");
       throw new Error("Invalid Credentails");
