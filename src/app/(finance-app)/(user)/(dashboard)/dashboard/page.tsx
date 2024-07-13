@@ -5,7 +5,7 @@ import { useGetUserData } from '@/utils/hooks/queryHooks/useGetUserData';
 import { useSession } from 'next-auth/react';
 import React from 'react'
 
-  function page() {
+  function UserDashboard() {
   const session = useSession();
   const { data, error, isLoading } = useGetUserData(
     session?.data?.user._id as string
@@ -18,4 +18,4 @@ import React from 'react'
   )
 }
 
-export default page
+export default UserDashboard
