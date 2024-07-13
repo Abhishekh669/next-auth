@@ -1,44 +1,33 @@
 import NextAuth from "next-auth";
 // import { authConfig } from './auth.config';
-import { DEFAULT_REDIRECT, PUBLIC_ROUTES, ROOT } from "./lib/route";
+import { ADMIN_REDIRECT, DEFAULT_REDIRECT, PUBLIC_ROUTES, ROOT } from "./lib/route";
 import { NextRequest, NextResponse } from "next/server";
 import { authConfig } from "./auth.config";
-import { getToken } from "next-auth/jwt";
-
 
 const { auth } = NextAuth(authConfig);
-// console.log("this is the auth okie",auth)
 
 export default auth(async (req, res) => {
   const { nextUrl } = req;
-  // const token = await getToken({req});
-  // console.log("this is the token",token)
-console.log("this isthe nextUrl",nextUrl)
   const isAuthenticated = !!req.auth;
-
-  console.log("Is authenticated:", isAuthenticated);
+  const isAdmin = false;
+  const adminPrivateRoute  = ["/admin/settings","/admin/transactions","/admin/accounts", "/admin-login","/admin/dashboard"]
+  const adminRoute  = adminPrivateRoute.includes(nextUrl.pathname);
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
-
-  if (isPublicRoute && isAuthenticated  && nextUrl.pathname != "/") {
+  if(adminRoute && !isAdmin){
+    return NextResponse.redirect(new URL(ADMIN_REDIRECT, nextUrl));
+  }
+  if(adminRoute && isAdmin ){
+    return NextResponse.redirect(new URL("/admin",nextUrl));
+  }
+  if (isPublicRoute && isAuthenticated   && nextUrl.pathname != "/") {
     return NextResponse.redirect(new URL(DEFAULT_REDIRECT, nextUrl));
   }
-
-  if (!isAuthenticated && !isPublicRoute) {
+  if (!isAuthenticated &&  !adminRoute ) {
     return NextResponse.redirect(new URL(ROOT, nextUrl));
   }
-
-  // Continue with the request if no redirect is needed
   return NextResponse.next();
 });
 
-
-// export const config = {
-//   matcher: [
-//               "/dashboard/:path*",
-//               "/sign-in",
-//               // "/api(.*)"
-//             ],
-// };
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

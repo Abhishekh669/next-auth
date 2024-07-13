@@ -2,7 +2,7 @@
 
 import { SignInValidation, SignUpValidation } from "@/types/user.types"
 import { connectDB } from "@/lib/connectDB"
-import { User } from "@/models/user.model";
+import { User } from "@/models/user/user.model";
 import bcryptjs, { hash } from "bcryptjs"
 import { signIn } from "@/auth";
 

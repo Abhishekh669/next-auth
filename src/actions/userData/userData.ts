@@ -1,7 +1,7 @@
 "use server"
 
 import { connectDB } from "@/lib/connectDB"
-import { User } from "@/models/user.model";
+import { User } from "@/models/user/user.model";
 
 connectDB();
 

@@ -1,11 +1,14 @@
+import AdminLogin from '@/app/(auth)/(admin)/admin-login/page'
 import React from 'react'
 
-function Admin_Home_Page() {
+function page() {
+    const auth  = false;
+    if(!auth) return <div>you are not admin</div>
   return (
     <div>
-      this is the admin home page
+      this is the page of the admin 
     </div>
   )
 }
 
-export default Admin_Home_Page
+export default page

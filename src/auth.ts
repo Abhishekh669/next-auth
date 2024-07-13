@@ -83,9 +83,8 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials";
 import { authConfig } from './auth.config';
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { connectDB } from './lib/connectDB';
-import { User } from './models/user.model';
+import { User } from './models/user/user.model';
 import { compare } from 'bcryptjs';
 export const BASE_PATH = "/api/auth";
 export const credentialsConfig = CredentialsProvider({
@@ -105,19 +104,15 @@ export const credentialsConfig = CredentialsProvider({
       if (!credentials) {
         throw new Error("Please enter username and password");
       }
-      console.log("this is the credentials", credentials);
       await connectDB();
       const user = await User.findOne({ email: credentials.email });
-      console.log("this is the password",user.Password)
       if (!user) {
         throw new Error("Invalid Credentails");
       }
-      console.log("this is the user", user);
       const isMatch = await compare(
         credentials.password as string,
         user.password
       );
-      console.log("this is matched", isMatch);
       if (!isMatch) {
         // return user;
         throw new Error("Invalid credentails")
@@ -125,7 +120,6 @@ export const credentialsConfig = CredentialsProvider({
       // throw new Error("Invalid credentials");
       return user;
     } catch (error) {
-      console.log("this is the error try ");
       throw new Error("Invalid Credentails");
     }
   },
