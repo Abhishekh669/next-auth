@@ -5,9 +5,32 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useMedia, useStartTyping} from "react-use";
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/button';
-import { Menu } from 'lucide-react';
+import Link from "next/link";
+import {
+  Bell,
+  CircleUser,
+  Home,
+  LineChart,
+  Menu,
+  Package,
+  Package2,
+  Search,
+  ShoppingCart,
+  Users,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 
 function Navigation() {
+  const pathname = usePathname();
     const routes = [
         {
             href : "/",
@@ -30,41 +53,89 @@ function Navigation() {
             label : "Settings"
         }
     ]
-    const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const isMobile = useMedia("(max-width : 1024px)",false);
-    const pathname = usePathname();
-    const onClick = (href : string) =>{
 
-        router.push(href);
-        setIsOpen(false);
-
-    };
     if(isMobile){
         return (
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger>
+          <Sheet>
+            <SheetTrigger asChild>
               <Button
-                variant={"outline"}
-                size="sm"
-                className=" w-full  m-0 text-black  lg:w-auto justify-between font-normal  hover:text-[#00D399] border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none  focus:bg-white/30 transition "
+                variant="outline"
+                size="icon"
+                className="shrink-0 size-6 md:hidden border-none"
               >
-                <Menu className="h-6 w-6  text-white " />
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className='bg-white' >
-              <nav className="flex flex-col gap-y-6  pt-6 ">
-                {routes.map((route) => (
-                  <Button
-                    key={route.href}
-                    variant={route.href === pathname ? "secondary" : "ghost"}
-                    onClick={() => onClick(route.href)}
-                    className="text-[#00D399] "
-                  >
-                    {route.label}
-                  </Button>
-                ))}
+            <SheetContent
+              side="left"
+              className="flex flex-col bg-white text-green-600"
+            >
+              <nav className="grid gap-2 text-lg font-medium">
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 text-lg font-semibold"
+                >
+                  <Package2 className="h-6 w-6" />
+                  <span className="sr-only">Acme Inc</span>
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <Home className="h-5 w-5" />
+                  Dashboard
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  Orders
+                  <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                    6
+                  </Badge>
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <Package className="h-5 w-5" />
+                  Products
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <Users className="h-5 w-5" />
+                  Customers
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <LineChart className="h-5 w-5" />
+                  Analytics
+                </Link>
               </nav>
+              <div className="mt-auto">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Upgrade to Pro</CardTitle>
+                    <CardDescription>
+                      Unlock all features and get unlimited access to our
+                      support team.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button size="sm" className="w-full">
+                      Upgrade
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </SheetContent>
           </Sheet>
         );
