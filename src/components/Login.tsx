@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { loginHandler } from "@/actions/auth/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -101,7 +101,7 @@ function Page() {
           </Button>
           <div className="my-4">
             <span>
-              Didn't have account?{" "}
+              Didn&apos;t have account?{" "}
               <Link className="text-blue-500 underline" href="sign-up">
                 create
               </Link>
