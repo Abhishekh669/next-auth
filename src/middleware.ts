@@ -9,7 +9,7 @@ const { auth } = NextAuth(authConfig);
 export default auth(async (req, res) => {
   const { nextUrl } = req;
   const isAuthenticated = !!req.auth;
-  const isAdmin = true;
+  const isAdmin = false;
   const adminPrivateRoute  = ["/admin/settings","/admin/transactions","/admin/accounts", "/admin-login","/admin/dashboard"]
   const adminRoute  = adminPrivateRoute.includes(nextUrl.pathname);
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
@@ -22,7 +22,7 @@ export default auth(async (req, res) => {
   if (isPublicRoute && isAuthenticated   && nextUrl.pathname != "/") {
     return NextResponse.redirect(new URL(DEFAULT_REDIRECT, nextUrl));
   }
-  if (!isAuthenticated &&  !adminRoute ) {
+  if (!isAuthenticated &&  !adminRoute && !isPublicRoute) {
     return NextResponse.redirect(new URL(ROOT, nextUrl));
   }
   return NextResponse.next();
