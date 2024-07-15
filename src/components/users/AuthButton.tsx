@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import {  signOut } from "@/helper";
 import { useRouter } from "next/navigation";
 import { CircleUser,  } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 
 export default function AuthButton() {

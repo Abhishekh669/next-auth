@@ -1,10 +1,9 @@
 "use client"
 import React, { useState } from 'react'
-import  NavButton  from './nav-button'
 import { usePathname, useRouter } from 'next/navigation'
 import { useMedia, useStartTyping} from "react-use";
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
-import { Button } from './ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import { Button } from '../ui/button';
 import Link from "next/link";
 import {
   Bell,
@@ -27,17 +26,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import NavButton from './nav-button';
 
 
 function Navigation() {
   const pathname = usePathname();
     const routes = [
         {
-            href : "/",
+            href : "/dashboard",
             label : "Overview"
         },
         {
-            href : "/ transactions",
+            href : "/transactions",
             label : "Transactions",
         },
         {
@@ -45,15 +45,14 @@ function Navigation() {
             label : "Accounts",
         },
         {
-            href  : "/catagories",
-            label : "Catagories"
+            href  : "/budgets",
+            label : "Budgets"
         },
         {
-            href : "/settting",
+            href : "/settings",
             label : "Settings"
         }
     ]
-    const router = useRouter();
     const isMobile = useMedia("(max-width : 1024px)",false);
 
     if(isMobile){

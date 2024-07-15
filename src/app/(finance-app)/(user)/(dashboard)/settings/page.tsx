@@ -1,11 +1,10 @@
-import Signup from '@/components/users/Signup'
+import Settings from '@/components/users/Settings'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <Signup/>
-      
+      <Settings />
     </div>
   )
 }

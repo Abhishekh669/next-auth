@@ -1,11 +1,10 @@
-import Signup from '@/components/users/Signup'
+import Budgets from '@/components/users/Budgets'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <Signup/>
-      
+      <Budgets />
     </div>
   )
 }

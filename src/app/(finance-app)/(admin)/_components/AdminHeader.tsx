@@ -1,6 +1,6 @@
 import React from "react";
 import WelcomeMsg from "@/components/welcomemsg"
-import HeaderLogo from "@/components/header-logo"
+import HeaderLogo from "@/components/users/header-logo"
 
 import AdminNavigation from "./AdminNavigation";
 function Adminheader() {

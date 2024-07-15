@@ -1,6 +1,6 @@
 "use client";
 import Loader from "@/components/Loader";
-import Header from "@/components/header";
+import Header from "@/components/users/header";
 import { useGetUserData } from "@/utils/hooks/queryHooks/useGetUserData";
 import { useSession } from "next-auth/react";
 type Props = {

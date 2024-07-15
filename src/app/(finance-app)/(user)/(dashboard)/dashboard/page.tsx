@@ -1,8 +1,7 @@
 "use client"
-import Dashboard from '@/components/Dashboard';
+import Dashboard from '@/components/users/Dashboard';
 import Loader from '@/components/Loader';
 import { useGetUserData } from '@/utils/hooks/queryHooks/useGetUserData';
-import { Metadata } from 'next';
 import { useSession } from 'next-auth/react';
 import React from 'react'
 

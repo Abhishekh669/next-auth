@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderLogo from "./header-logo";
 import Navigation from "./navigation";
-import WelcomeMsg from "./welcomemsg"
+import WelcomeMsg from "../welcomemsg"
 import AuthButton from "./AuthButton";
 function header() {
   

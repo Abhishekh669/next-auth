@@ -2,17 +2,15 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Input } from './ui/input';
 import { Eye, EyeOff } from 'lucide-react';
-import { Button } from './ui/button';
-import Link from 'next/link';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 type Props ={
   email : string,
   password : string
 }
 function AdminLoginPage() {
    const [show, setShow] = useState(false);
-   const router = useRouter();
    const {
      register,
      handleSubmit,
