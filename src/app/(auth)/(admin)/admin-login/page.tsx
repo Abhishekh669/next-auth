@@ -1,4 +1,4 @@
-import AdminLoginPage from '@/components/AdminLoginPage'
+import AdminLoginPage from '@/components/users/AdminLoginPage'
 import React from 'react'
 
 function AdminLogin() {
