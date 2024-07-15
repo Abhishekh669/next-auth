@@ -4,16 +4,15 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ArrowUpDown, LucideArrowDownUp, Plus } from "lucide-react";
 import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import categories from "@/lib/data";
 
-type TransactionData = {
+interface TransactionData{
   name : string,
   quantity : number
   price : number,
   category : string,
-  catageory :string,
 
 }
 
@@ -41,14 +40,15 @@ function Transactions() {
   const currentHour = currentDateTime.getHours();
   const currentMinute = currentDateTime.getMinutes();
   const currentSecond = currentDateTime.getSeconds();
-  const createTransactions = (data  : TransactionData) =>{
-    if(data){
-      console.log("this is the data",data)
-      
+  const addTransaction: SubmitHandler<FieldValues> = (
+    data
+  ) => {
+    if (data) {
+      console.log("this is the data", data);
+
       setShowAmount(true);
     }
-
-  }
+  };
 
 
   return (
@@ -109,6 +109,7 @@ function Transactions() {
             Price :
           </Label>
           <Input
+            
             placeholder="0"
             {...register("price", {
               required: "fill these field",
@@ -154,7 +155,7 @@ function Transactions() {
           <Button
             size={"sm"}
             className="text-white  w-full h-[50px] hover:bg-[#22c55e] text-[20px] bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
-            onClick={handleSubmit(createTransactions)}
+            onClick={handleSubmit(addTransaction)}
           >
             Submit
           </Button>
