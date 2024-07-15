@@ -5,7 +5,7 @@ import { useMedia, useStartTyping } from "react-use";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import NavButton from "@/components/nav-button";
+import NavButton from "@/components/users/nav-button";
 
 function AdminNavigation() {
   const routes = [
