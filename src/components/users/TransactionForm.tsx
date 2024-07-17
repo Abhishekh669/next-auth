@@ -5,19 +5,13 @@ import { ArrowUpDown, LucideArrowDownUp, Plus } from "lucide-react";
 import { Input } from "../ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Label } from "@radix-ui/react-dropdown-menu";
-import categories from "@/lib/data";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTrigger,
-} from "../ui/sheet";
+
 
 
 function TransactionForm() {
      const [showAmount, setShowAmount] = useState(false);
      const [totalAmount, setTotalAmount] = useState();
+     const categories = ["Health", "Expenses", "Household", "Transportation", "Investment", "Others"]
      const {
        register,
        handleSubmit,
@@ -100,7 +94,7 @@ function TransactionForm() {
             {...register("category", { required: true })}
           >
             <option value="">Select a category</option>
-            {Object.keys(categories).map((category) => (
+            {categories.map((category) => (
               <option key={category} value={category} className="text-[14px]">
                 {category}
               </option>

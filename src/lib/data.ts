@@ -44,6 +44,9 @@ const categories = {
     "Gifts and donations",
     "Subscriptions (streaming services, magazines)",
   ],
+  others : [
+    ""
+  ]
 };
 
 export default categories;
