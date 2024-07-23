@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+
+import React, {  useState } from "react";
 import { Button } from "../ui/button";
-import { ArrowUpDown, LucideArrowDownUp, Plus } from "lucide-react";
+import { ArrowUpDown,  Plus } from "lucide-react";
 import { Input } from "../ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, Form, SubmitHandler, useForm } from "react-hook-form";
 import { Label } from "@radix-ui/react-dropdown-menu";
-import categories from "@/lib/data";
 import {
   Sheet,
   SheetClose,
@@ -17,18 +17,21 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { isNumeric } from "@/lib/Checker";
+import { useCreateTransactions } from "@/utils/hooks/mutateHooks/useCreateTransactions";
+import { toast } from "sonner";
 
-interface TransactionData {
+export interface TransactionData {
+  _id  ?: string;
+  createdAt ?: string
   name: string;
   quantity: number;
   price: number;
   category: string;
+  totalPrice : number;
 }
 
 function Transactions() {
-  const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const [showAmount, setShowAmount] = useState(false);
-  const [totalAmount, setTotalAmount] = useState(3000);
+  const [totalAmount, setTotalAmount] = useState(0);
        const categories = [
          "Health",
          "Expenses",
@@ -37,33 +40,63 @@ function Transactions() {
          "Investment",
          "Others",
        ];
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""
+
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<TransactionData>();
-
-  const addTransaction: SubmitHandler<FieldValues> = (data) => {
-    if (data) {
-      const checkQuantity = isNumeric(data.quantity)
-      const checkPrice = isNumeric(data.price)
+  const {data, mutate:server_createTransactions} = useCreateTransactions();
+  const addTransaction: SubmitHandler<FieldValues> = async (mineData) => {
+    console.log("th sis the type of hte quntity", typeof mineData.quantity)
+    if (mineData) {
+      const checkQuantity = isNumeric(mineData.quantity)
+      const checkPrice = isNumeric(mineData.price)
       if(!checkPrice ||  !checkQuantity){
         setError("Enter the valid input in price or qunatity")
         return ;
       }
+      const parsedPrice = parseFloat(mineData.price);
+      const parsedQuantity = parseInt(mineData.quantity);
+      const calculatedTotalAmount = parsedPrice * parsedQuantity;
+      setTotalAmount(calculatedTotalAmount);
       console.log("i am both number")
       try {
+        const  newData = {
+          ...mineData,
+          createdAt : new Date().toISOString(),
+          totalAmount : calculatedTotalAmount
+        }
+
+        console.log("this is the new DAta",newData)
+        server_createTransactions(newData)
+        if(data){
+          console.log("this is hte  data",data)
+          if(data.error){
+            toast.error("Data Failed to create");
+          }
+          if(data.message){
+            toast.success("Transaction created successfully");
+          }
+        reset();
+        setError("")
+        setTotalAmount(0)
+
+        }
         
       } catch (error) {
         console.log("Failed to create the transactions")
+        toast.error("Transaction failed to create")
         
       }
 
     }
-      
-    reset();
+    
+    
+    
   };
 
   return (
@@ -72,7 +105,7 @@ function Transactions() {
         <SheetTrigger asChild className="p-4 md:p-6 flex flex-col gap-y-6">
           <div className="w-full  flex flex-col md:flex-row gap-y-4  md:justify-between   ">
             <span className="text-[40px] font-bold  text-[#374151]">
-              Transactions
+              Transactions  
             </span>
             <Button
               size={"sm"}
@@ -92,7 +125,7 @@ function Transactions() {
           </SheetHeader>
 
           <form onSubmit={handleSubmit(addTransaction)}>
-            <SheetDescription className="p-4 md:p-6 flex   flex-col   gap-y-6">
+            <SheetDescription className="p-2 md:p-6 flex   flex-col   gap-y-6">
               <div className="mb-4 relative  ">
           {error && <div className="text-red-600 text-sm my-2">{error}</div>}
                 <Label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -119,6 +152,7 @@ function Transactions() {
                   Quantity :
                 </Label>
                 <Input
+                  
                   placeholder="0"
                   {...register("quantity",{
                     required : "enter  the quantity"
@@ -183,7 +217,7 @@ function Transactions() {
                   </span>
                 )}
               </div>
-              <SheetFooter>
+                <SheetFooter>
                 <SheetClose asChild>
                   <div>
                     <Button
@@ -193,15 +227,7 @@ function Transactions() {
                     >
                       Submit
                     </Button>
-                    {showAmount && (
-                      <div className="text-[25px]  border-2  border-gray-400  p-4 rounded-[5px] flex font-semibold">
-                        <div>
-                          {" "}
-                          Total Amount : $
-                          <span className="text-[22px]"> {totalAmount}</span>
-                        </div>
-                      </div>
-                    )}
+                    
                    
                   </div>
                 </SheetClose>
@@ -210,6 +236,7 @@ function Transactions() {
           </form>
         </SheetContent>
       </Sheet>
+     
     </div>
   );
 }

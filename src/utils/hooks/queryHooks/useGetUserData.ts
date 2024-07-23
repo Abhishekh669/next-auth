@@ -1,4 +1,4 @@
-import { getUserData } from "@/actions/userData/userData";
+import { getUserData } from "@/actions/user/userData/userData";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchUserData = async (userId : string) =>{

@@ -1,8 +1,7 @@
+import { createDecipheriv } from "crypto";
 import mongoose, { Schema } from "mongoose";
-const subCategorySchema = new Schema({
-    name : {type : String, required : true},
+import { tree } from "next/dist/build/templates/app-page";
 
-})
 const transactionSchema = new Schema({
     name : {
         type : String,
@@ -16,15 +15,21 @@ const transactionSchema = new Schema({
         type : Number,
         required : true,
     },
-    category : [
-        {
-            health : [subCategorySchema],
-            investment : [subCategorySchema],
-            household : [subCategorySchema],
-            transportation : [subCategorySchema],
-            expenses : [subCategorySchema],
-            others  : [subCategorySchema]
-        }
-    ]
+    category: {
+        type: String,
+        required: true,
+    },
+    
+    createdAt : {
+        type :String,
+        required : true,
+    },
+    totalAmount : {
+        type : Number,
+        required : true
+    }
 
 })
+
+
+export const Transaction = mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema);

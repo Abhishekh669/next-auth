@@ -6,14 +6,18 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { Button } from '../ui/button';
 import Link from "next/link";
 import {
+  ArrowRightLeft,
+  BadgeDollarSignIcon,
   Bell,
   CircleUser,
+  Contact,
   Home,
   LineChart,
   Menu,
   Package,
   Package2,
   Search,
+  Settings,
   ShoppingCart,
   Users,
 } from "lucide-react";
@@ -62,9 +66,9 @@ function Navigation() {
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 size-6 md:hidden border-none"
+                className="shrink-0 size-6 md:hidden border-none ml-3"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-8 w-8" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
@@ -81,60 +85,45 @@ function Navigation() {
                   <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
                   Dashboard
                 </Link>
                 <Link
-                  href="#"
+                  href="/accounts"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
                 >
-                  <ShoppingCart className="h-5 w-5" />
-                  Orders
+                  <Contact className="h-5 w-5" />
+                  Accounts
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                     6
                   </Badge>
                 </Link>
                 <Link
-                  href="#"
+                  href="/transactions"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
-                  <Package className="h-5 w-5" />
-                  Products
+                  <ArrowRightLeft className="h-5 w-5" />
+                  Transactions
                 </Link>
                 <Link
-                  href="#"
+                  href="/budgets"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
-                  <Users className="h-5 w-5" />
-                  Customers
+                  <BadgeDollarSignIcon className="h-5 w-5" />
+                  Budgets
                 </Link>
                 <Link
-                  href="#"
+                  href="/settings"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
-                  <LineChart className="h-5 w-5" />
-                  Analytics
+                  <Settings className="h-5 w-5" />
+                  Settings
                 </Link>
               </nav>
-              <div className="mt-auto">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Upgrade to Pro</CardTitle>
-                    <CardDescription>
-                      Unlock all features and get unlimited access to our
-                      support team.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button size="sm" className="w-full">
-                      Upgrade
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
+             
             </SheetContent>
           </Sheet>
         );

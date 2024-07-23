@@ -1,4 +1,4 @@
-import { getAllUser } from "@/actions/userData/userData"
+import { getAllUser } from "@/actions/user/userData/userData"
 import { useQuery } from "@tanstack/react-query";
 
 export  const fetchAllUsers = async() =>{
