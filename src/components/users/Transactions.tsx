@@ -94,6 +94,9 @@ function Transactions() {
       }
 
     }
+    reset();
+        setError("")
+        setTotalAmount(0)
     
     
     
@@ -110,9 +113,9 @@ function Transactions() {
             <Button
               size={"sm"}
               className="text-white bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px] hover:bg-green-500 "
-              onClick={() => {
-                reset();
-              }}
+              onClick={() => 
+                reset()
+              }
             >
               <Plus className="size-4 mr-2 text-white" />
               Add New
