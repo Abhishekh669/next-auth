@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: Props) => {
   const { isLoading } = useGetUserData(session?.data?.user._id as string);
   if (isLoading) return <Loader />;
   return (
-    <div>
+    <div className="w-full min-h-screen h-full bg-[#f0fdfa]">
       <Header />
       {children}
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
 
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { ArrowUpDown,  Plus } from "lucide-react";
+import { ArrowUpDown, Plus } from "lucide-react";
 import { Input } from "../ui/input";
 import { FieldValues, Form, SubmitHandler, useForm } from "react-hook-form";
 import { Label } from "@radix-ui/react-dropdown-menu";
@@ -21,25 +21,25 @@ import { useCreateTransactions } from "@/utils/hooks/mutateHooks/useCreateTransa
 import { toast } from "sonner";
 
 export interface TransactionData {
-  _id  ?: string;
-  createdAt ?: string
+  _id?: string;
+  createdAt?: string
   name: string;
   quantity: number;
   price: number;
   category: string;
-  totalPrice : number;
+  totalPrice: number;
 }
 
 function Transactions() {
   const [totalAmount, setTotalAmount] = useState(0);
-       const categories = [
-         "Health",
-         "Expenses",
-         "Household",
-         "Transportation",
-         "Investment",
-         "Others",
-       ];
+  const categories = [
+    "Health",
+    "Expenses",
+    "Household",
+    "Transportation",
+    "Investment",
+    "Others",
+  ];
   const [error, setError] = useState(""
 
   );
@@ -49,15 +49,15 @@ function Transactions() {
     formState: { errors },
     reset,
   } = useForm<TransactionData>();
-  const {data, mutate:server_createTransactions} = useCreateTransactions();
+  const { data, mutate: server_createTransactions } = useCreateTransactions();
   const addTransaction: SubmitHandler<FieldValues> = async (mineData) => {
     console.log("th sis the type of hte quntity", typeof mineData.quantity)
     if (mineData) {
       const checkQuantity = isNumeric(mineData.quantity)
       const checkPrice = isNumeric(mineData.price)
-      if(!checkPrice ||  !checkQuantity){
+      if (!checkPrice || !checkQuantity) {
         setError("Enter the valid input in price or qunatity")
-        return ;
+        return;
       }
       const parsedPrice = parseFloat(mineData.price);
       const parsedQuantity = parseInt(mineData.quantity);
@@ -65,41 +65,41 @@ function Transactions() {
       setTotalAmount(calculatedTotalAmount);
       console.log("i am both number")
       try {
-        const  newData = {
+        const newData = {
           ...mineData,
-          createdAt : new Date().toISOString(),
-          totalAmount : calculatedTotalAmount
+          createdAt: new Date().toISOString(),
+          totalAmount: calculatedTotalAmount
         }
 
-        console.log("this is the new DAta",newData)
+        console.log("this is the new DAta", newData)
         server_createTransactions(newData)
-        if(data){
-          console.log("this is hte  data",data)
-          if(data.error){
+        if (data) {
+          console.log("this is hte  data", data)
+          if (data.error) {
             toast.error("Data Failed to create");
           }
-          if(data.message){
+          if (data.message) {
             toast.success("Transaction created successfully");
           }
-        reset();
-        setError("")
-        setTotalAmount(0)
+          reset();
+          setError("")
+          setTotalAmount(0)
 
         }
-        
+
       } catch (error) {
         console.log("Failed to create the transactions")
         toast.error("Transaction failed to create")
-        
+
       }
 
     }
     reset();
-        setError("")
-        setTotalAmount(0)
-    
-    
-    
+    setError("")
+    setTotalAmount(0)
+
+
+
   };
 
   return (
@@ -107,13 +107,13 @@ function Transactions() {
       <Sheet>
         <SheetTrigger asChild className="p-4 md:p-6 flex flex-col gap-y-6">
           <div className="w-full  flex flex-col md:flex-row gap-y-4  md:justify-between   ">
-            <span className="text-[40px] font-bold  text-[#374151]">
-              Transactions  
+            <span className="text-[40px] font-bold bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px] bg-clip-text text-transparent filter drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+              Transactions
             </span>
             <Button
               size={"sm"}
               className="text-white bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px] hover:bg-green-500 "
-              onClick={() => 
+              onClick={() =>
                 reset()
               }
             >
@@ -130,7 +130,7 @@ function Transactions() {
           <form onSubmit={handleSubmit(addTransaction)}>
             <SheetDescription className="p-2 md:p-6 flex   flex-col   gap-y-6">
               <div className="mb-4 relative  ">
-          {error && <div className="text-red-600 text-sm my-2">{error}</div>}
+                {error && <div className="text-red-600 text-sm my-2">{error}</div>}
                 <Label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Name :
                 </Label>
@@ -155,10 +155,10 @@ function Transactions() {
                   Quantity :
                 </Label>
                 <Input
-                  
+
                   placeholder="0"
-                  {...register("quantity",{
-                    required : "enter  the quantity"
+                  {...register("quantity", {
+                    required: "enter  the quantity"
                   })}
                   className="w-full p-3  border border-gray-300 rounded-[10px]"
                 />
@@ -220,7 +220,7 @@ function Transactions() {
                   </span>
                 )}
               </div>
-                <SheetFooter>
+              <SheetFooter>
                 <SheetClose asChild>
                   <div>
                     <Button
@@ -230,8 +230,8 @@ function Transactions() {
                     >
                       Submit
                     </Button>
-                    
-                   
+
+
                   </div>
                 </SheetClose>
               </SheetFooter>
@@ -239,7 +239,7 @@ function Transactions() {
           </form>
         </SheetContent>
       </Sheet>
-     
+
     </div>
   );
 }

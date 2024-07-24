@@ -87,6 +87,12 @@ function Navigation() {
                 <Link
                   href="/dashboard"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    document
+                      .querySelector('[data-state="open"]')
+                      ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
+                  }}
+                  prefetch={false}
                 >
                   <Home className="h-5 w-5" />
                   Dashboard
@@ -94,6 +100,12 @@ function Navigation() {
                 <Link
                   href="/accounts"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                  onClick={() => {
+                    document
+                      .querySelector('[data-state="open"]')
+                      ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
+                  }}
+                  prefetch={false}
                 >
                   <Contact className="h-5 w-5" />
                   Accounts
@@ -104,6 +116,12 @@ function Navigation() {
                 <Link
                   href="/transactions"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    document
+                      .querySelector('[data-state="open"]')
+                      ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
+                  }}
+                  prefetch={false}
                 >
                   <ArrowRightLeft className="h-5 w-5" />
                   Transactions
@@ -111,6 +129,12 @@ function Navigation() {
                 <Link
                   href="/budgets"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    document
+                      .querySelector('[data-state="open"]')
+                      ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
+                  }}
+                  prefetch={false}
                 >
                   <BadgeDollarSignIcon className="h-5 w-5" />
                   Budgets
@@ -118,6 +142,12 @@ function Navigation() {
                 <Link
                   href="/settings"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    document
+                      .querySelector('[data-state="open"]')
+                      ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
+                  }}
+                  prefetch={false}
                 >
                   <Settings className="h-5 w-5" />
                   Settings
