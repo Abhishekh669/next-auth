@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function page({ params }: { params: { id: string } }) {
+function Page({ params }: { params: { id: string } }) {
   const { data: transaction, error, isLoading } = useGetTransactionData(params.id);
   const session = useSession();
 
@@ -51,4 +51,4 @@ function page({ params }: { params: { id: string } }) {
 
 }
 
-export default page
+export default Page
