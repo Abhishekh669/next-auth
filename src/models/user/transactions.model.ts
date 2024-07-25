@@ -3,6 +3,11 @@ import mongoose, { Schema } from "mongoose";
 import { tree } from "next/dist/build/templates/app-page";
 
 const transactionSchema = new Schema({
+    userId : {
+        type : String,
+        required : true
+    },
+
     name : {
         type : String,
         required : true,

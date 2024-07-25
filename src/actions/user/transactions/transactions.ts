@@ -79,3 +79,48 @@ export async function deleteTransaction(transaction: {transactionId : string}) {
         }
     
 }
+
+
+export async function  getTransactionData(transactionId : string) {
+    console.log("this is the transaction id",transactionId)
+    try {
+        const transData= await Transaction.findById({_id : transactionId});
+        if(!transData){
+            return {
+                error : "No such data or failed to get transaction"
+            }
+        }
+        return {
+            message  :"Successfully got transactions",
+            data : JSON.stringify(transData)
+        }
+    } catch (error) {
+        return {
+            error : "failed to get the transaction"
+        }
+    }
+
+}
+
+export async function getUserTransactions(userId : string) {
+    try {
+        const userTransaction = await Transaction.find({userId});
+        console.log("this isthe userTransaction",userTransaction)
+        if(!userTransaction){
+            return  {
+                message : "No any data found",
+                data : null
+            }
+        }
+        return {
+            message : "Successfully found the data",
+            data : JSON.stringify(userTransaction)
+        }
+    } catch (error) {
+        return {
+            error : "Failed to get the user transaction"
+        }
+        
+    }
+    
+}

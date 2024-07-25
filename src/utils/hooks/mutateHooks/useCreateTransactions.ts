@@ -26,7 +26,7 @@ export const useCreateTransactions = () =>{
         mutationFn: createTransactions,
         onSuccess : () =>{
             toast.success("Transaction created sucessfully")
-            queryClient.invalidateQueries({queryKey : ['allTransactions']})
+            queryClient.invalidateQueries({queryKey : ['UserTransactions']})
             
         },
         onError : () =>{},

@@ -12,10 +12,10 @@ const DashboardLayout = ({ children }: Props) => {
   const { isLoading } = useGetUserData(session?.data?.user._id as string);
   if (isLoading) return <Loader />;
   return (
-    <div className="w-full min-h-screen h-full bg-[#f0fdfa]">
+    <div className="w-full min-h-screen h-full bg-[#191414]">
       <Header />
       {children}
     </div>
   );
-};
+};  
 export default DashboardLayout;

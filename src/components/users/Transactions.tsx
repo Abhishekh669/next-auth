@@ -1,6 +1,4 @@
 "use client";
-
-
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { ArrowUpDown, Plus } from "lucide-react";
@@ -19,9 +17,11 @@ import {
 import { isNumeric } from "@/lib/Checker";
 import { useCreateTransactions } from "@/utils/hooks/mutateHooks/useCreateTransactions";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 export interface TransactionData {
   _id?: string;
+  userId  ?:string
   createdAt?: string
   name: string;
   quantity: number;
@@ -49,6 +49,8 @@ function Transactions() {
     formState: { errors },
     reset,
   } = useForm<TransactionData>();
+  const  session = useSession();
+  console.log("this is the session in the transaction creationg",session)
   const { data, mutate: server_createTransactions } = useCreateTransactions();
   const addTransaction: SubmitHandler<FieldValues> = async (mineData) => {
     console.log("th sis the type of hte quntity", typeof mineData.quantity)
@@ -67,6 +69,7 @@ function Transactions() {
       try {
         const newData = {
           ...mineData,
+          userId : session?.data?.user._id as string,
           createdAt: new Date().toISOString(),
           totalAmount: calculatedTotalAmount
         }
@@ -138,6 +141,7 @@ function Transactions() {
                   placeholder="Product name"
                   {...register("name", {
                     required: "plz enter the name of product",
+                    maxLength : {value : 15, message:"maximum length is 15 characters"}
                   })}
                   className="w-full  p-3  border border-gray-300 rounded-[10px]"
                 />
