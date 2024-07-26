@@ -1,7 +1,7 @@
 "use client";
 import Loader from "@/components/Loader";
 import Header from "@/components/users/header";
-import { useGetUserData } from "@/utils/hooks/queryHooks/useGetUserData";
+import { useGetUserData } from "@/utils/hooks/queryHooks/users/useGetUserData";
 import { useSession } from "next-auth/react";
 type Props = {
   children: React.ReactNode;

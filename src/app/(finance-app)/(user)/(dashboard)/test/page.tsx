@@ -1,7 +1,7 @@
 "use client"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { DataType } from "@/components/users/TransactionData";
-import { useGetTransactions } from "@/utils/hooks/queryHooks/useGetTransactions";
+import { useGetTransactions } from "@/utils/hooks/queryHooks/transactions/useGetTransactions";
 
 export default function Component() {
     const { data: transactionData, error, isLoading } = useGetTransactions();

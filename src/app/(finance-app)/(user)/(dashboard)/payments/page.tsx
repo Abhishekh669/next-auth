@@ -1,4 +1,4 @@
-import { useGetTransactions } from "@/utils/hooks/queryHooks/useGetTransactions"
+import { useGetTransactions } from "@/utils/hooks/queryHooks/transactions/useGetTransactions"
 import { Payment, columns } from "./columns"
 import { DataTable } from "./data-table"
 

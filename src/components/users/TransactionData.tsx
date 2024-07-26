@@ -1,16 +1,16 @@
 "use client"
-import { useGetTransactions } from '@/utils/hooks/queryHooks/useGetTransactions';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
+import { useGetTransactions } from '@/utils/hooks/queryHooks/transactions/useGetTransactions';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, Separator } from '@radix-ui/react-dropdown-menu';
 import { Delete, Edit, Ellipsis, Trash } from 'lucide-react';
 import { StringSchemaDefinition } from 'mongoose';
 import React from 'react';
 import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '../ui/dropdown-menu';
-import { useDeleteTransaction } from '@/utils/hooks/mutateHooks/useDeleteTransation';
+import { useDeleteTransaction } from '@/utils/hooks/mutateHooks/transactions/useDeleteTransation';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '../ui/table';
 import { useRouter } from 'next/navigation';
-import { useGetUserData } from '@/utils/hooks/queryHooks/useGetUserData';
+import { useGetUserData } from '@/utils/hooks/queryHooks/users/useGetUserData';
 import { useSession } from 'next-auth/react';
-import { useGetUserTransactions } from '@/utils/hooks/queryHooks/useGetUserTransactions';
+import { useGetUserTransactions } from '@/utils/hooks/queryHooks/transactions/useGetUserTransactions';
 
 export interface DataType {
   _id: string
@@ -25,50 +25,6 @@ export interface DataType {
 
 }
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
 function TransactionData() {
   const session = useSession();
 
@@ -142,7 +98,7 @@ function TransactionData() {
       <div className="container mx-auto py-8">
         <Table className='text-[#25D366]    '>
           <TableHeader>
-            <TableRow className="bg-primary/90">
+            <TableRow className="bg-primary/90 border-whites" >
               <TableHead className="px-4 py-3 text-left font-semibold">Name</TableHead>
               <TableHead className="hidden md:table-cell px-4 py-3  font-semibold text-[15px]">Quantity</TableHead>
               <TableHead className="hidden md:table-cell px-4 py-3  font-semibold text-[15px]">Price</TableHead>

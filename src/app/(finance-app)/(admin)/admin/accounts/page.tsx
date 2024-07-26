@@ -1,5 +1,5 @@
 "use client"
-import { useGetAllUsers } from '@/utils/hooks/queryHooks/useGetAllUsers'
+import { useGetAllUsers } from '@/utils/hooks/queryHooks/users/useGetAllUsers'
 import React from 'react'
 
 function Admin_Home_Page() {
