@@ -80,9 +80,12 @@ function Transactions() {
           console.log("this is hte  data", data)
           if (data.error) {
             toast.error("Data Failed to create");
+            return ;
           }
           if (data.message) {
-            toast.success("Transaction created successfully");
+            // toast.success("Transaction created successfully");
+            console.log("i am successfully added")
+
           }
           reset();
           setError("")
@@ -229,8 +232,9 @@ function Transactions() {
                   <div>
                     <Button
                       size={"sm"}
+                      type="submit"
                       className="text-white  mb-2 w-full h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
-                      onClick={handleSubmit(addTransaction)}
+                      
                     >
                       Submit
                     </Button>

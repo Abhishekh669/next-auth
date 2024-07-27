@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/utils/providers/QueryProvider";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <SessionProvider>
         <QueryProvider>
           {children}
+          <Toaster className="bg-white text-black" />
         </QueryProvider>
       </SessionProvider>
       </body>

@@ -1,11 +1,12 @@
 "use server"
 import { connectDB } from "@/lib/connectDB";
 import { Transaction } from "@/models/user/transactions.model";
+import { FieldValues } from "react-hook-form";
 
 
 connectDB();
 
-export async function  createTransactions(data :any){
+export async function  createTransactions(data :FieldValues){
     if(data){
         try {
             console.log("this isthe data of the transaction in the create Transation",data)

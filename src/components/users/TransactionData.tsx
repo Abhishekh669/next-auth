@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useGetUserData } from '@/utils/hooks/queryHooks/users/useGetUserData';
 import { useSession } from 'next-auth/react';
 import { useGetUserTransactions } from '@/utils/hooks/queryHooks/transactions/useGetUserTransactions';
+import Loader from '../Loader';
 
 export interface DataType {
   _id: string
@@ -34,6 +35,7 @@ function TransactionData() {
 
 
   const router = useRouter();
+  
 
   return (
     // <div>
