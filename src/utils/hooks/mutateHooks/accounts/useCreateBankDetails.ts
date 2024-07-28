@@ -8,7 +8,7 @@ export const useCreateBankDetails = () =>{
         mutationFn: createBank,
         onSuccess : () =>{
             toast.success("Bank Details created sucessfully")
-            queryClient.invalidateQueries({queryKey : ['bankDetail']})
+            queryClient.invalidateQueries({queryKey : ['getUserBankDetails']})
             
         },
         onError : () =>{

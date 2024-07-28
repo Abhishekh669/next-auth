@@ -1,6 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
 const bankDetailSchema = new Schema({
+    userId : {
+        type : String,
+        required : true,
+    },
     bank_name : {
         type : String,
         required : true, 
