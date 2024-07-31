@@ -3,7 +3,7 @@ import TransactionId from "@/components/users/TransactionId";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-function page() {
+function Page() {
   const pathname=usePathname();
   console.log("this ishte chekcing",pathname.split("/"))
   const prevPathname=pathname.split("/")[2];
@@ -17,4 +17,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
