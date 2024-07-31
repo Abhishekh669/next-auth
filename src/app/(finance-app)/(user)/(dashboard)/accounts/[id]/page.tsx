@@ -11,12 +11,11 @@ import {
 } from "@/components/ui/sheet";
 import { Plus } from "lucide-react";
 import React from "react";
-import AccountForm from "./AccountForm";
-import BankAccount from "./BankAccount";
 import { useGetUserBankDetails } from "@/utils/hooks/queryHooks/accounts/useGetUserBankDetails";
 import { useSession } from "next-auth/react";
-import BankDetails from "./BankDetails";
-
+import BankDetails from "@/components/users/accounts/BankDetails";
+import BankAccount from "@/components/users/accounts/BankAccount";
+//  here i have to add the specififc form for addingthe bank amoun tdetail nad show graph 
 function AccountPage() {
   const session = useSession();
 console.log("this is the session",session)
@@ -28,7 +27,7 @@ console.log("this is the session",session)
         <Card className="border-none drop-shadow-sm text-white">
           <CardHeader className="lg:items-center lg:justify-between gap-y-2 lg:flex-row">
             <CardTitle className="text-xl line-clamp-1">Account Page</CardTitle>
-            <SheetTrigger asChild>
+            <SheetTrigger>
               <Button
                 size={"sm"}
                 className="w-full  text-white bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[10px] hover:bg-green-500 "

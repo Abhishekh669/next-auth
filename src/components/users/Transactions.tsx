@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 
 export interface TransactionData {
   _id?: string;
+  bankDetailsId ?: string;
   userId  ?:string
   createdAt?: string
   name: string;
@@ -30,7 +31,7 @@ export interface TransactionData {
   totalPrice: number;
 }
 
-function Transactions() {
+function Transactions({bankDetailsId} : {bankDetailsId : string}) {
   const [totalAmount, setTotalAmount] = useState(0);
   const categories = [
     "Health",
@@ -70,6 +71,7 @@ function Transactions() {
         const newData = {
           ...mineData,
           userId : session?.data?.user._id as string,
+          bankDetailsId : bankDetailsId as string,
           createdAt: new Date().toISOString(),
           totalAmount: calculatedTotalAmount
         }

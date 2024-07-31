@@ -1,6 +1,7 @@
+import Loader from '@/components/Loader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { bankdetailtype } from '@/types/bankdetail.types'
-import { Users } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 interface DataType{
@@ -10,8 +11,11 @@ interface DataType{
 }
 
 function BankDetails({data, isLoading, error} : DataType) {
-    console.log("this is the data in teh bankdetail apage",data)
-  return (
+  const router = useRouter();
+  if(isLoading)  return <Loader /> 
+  if(!data?.data.length && !isLoading && !error) return <div className='text-white'>No account yet</div>
+    console.log("this is the data in teh bankdetail apage",data.data)
+  if(data?.data && !isLoading && !error) return (
     <div className='text-green-600 p-4 flex flex-col gap-y-4'>
         <div>
             Your Accounts : 
@@ -19,13 +23,20 @@ function BankDetails({data, isLoading, error} : DataType) {
        <div className='flex flex-col gap-y-4'>
        {
             data && data.data && data.data.slice().reverse().map((account : bankdetailtype) =>(
-                <Card x-chunk="dashboard-01-chunk-0" className='p-2 flex flex-col gap-y-3'>
+                <Card x-chunk="dashboard-01-chunk-0" className='p-2 cursor-pointer  flex flex-col gap-y-3'
+                  onClick={
+                    () =>{
+                      router.push(`/accounts/${account._id}`)
+                    }
+                  }
+                  key={account._id}
+                >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-[20px] font-semibold">{account.bank_name}</CardTitle>
           </CardHeader>
           <CardContent>
             <div>
-                Branch : {account.bank_branch}
+                <span className='font-semibold'>Branch</span> : {account.bank_branch}
             </div>
           </CardContent>
         </Card>

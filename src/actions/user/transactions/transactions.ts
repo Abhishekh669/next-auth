@@ -1,6 +1,9 @@
 "use server"
 import { connectDB } from "@/lib/connectDB";
+import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
+import { transBankDetail } from "@/types/bankdetail.types";
+import { Judson } from "next/font/google";
 import { FieldValues } from "react-hook-form";
 
 
@@ -124,4 +127,28 @@ export async function getUserTransactions(userId : string) {
         
     }
     
+}
+
+
+
+export async function transactionFromBankDetail(idData  :  transBankDetail){
+    try {
+        const transDetails = await BankDetail.find({_id : idData.bankDetailId, userId : idData.userId})
+        if(!transDetails){
+            return {
+                error : "Failed to get the bank details "
+            }
+        }
+
+        return {
+            message : "data send successfully",
+            data : JSON.stringify(transDetails)
+        }
+
+    } catch (error) {
+        return {
+            error : "Failed to create  the data"
+        }
+        
+    }
 }

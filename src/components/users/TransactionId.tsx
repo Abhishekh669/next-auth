@@ -3,8 +3,14 @@ import React from "react";
 import TransactionDetail from "./TransactionDetail";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-function TransactionId({ transId }: { transId: string }) {
+interface NewDataType{
+  transId : string,
+  prevId : string
+}
+function TransactionId({ transId, prevId }: NewDataType ) {
     const router = useRouter();
+    console.log("this is the transId",transId)
+    console.log("this is the prevId",prevId)
   return (
     <div className="p-2">
       <div className="p-3 mt-10 flex flex-col gap-y-8 border-2 border-red-600 ">
@@ -19,7 +25,7 @@ function TransactionId({ transId }: { transId: string }) {
         size={"sm"}
         className="text-white   w-full h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
         onClick={() =>{
-            router.push("/transactions")
+            router.push(`/transactions/${prevId}`)
         }}
       >
         Go To Transactions

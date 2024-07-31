@@ -1,12 +1,32 @@
-import TransactionId from "@/components/users/TransactionId";
-import React from "react";
+"use client"
+import { Button } from '@/components/ui/button'
+import TransactionData from '@/components/users/TransactionData'
+import Transactions from '@/components/users/Transactions'
+import { usePathname, useRouter } from 'next/navigation'
+import path from 'path'
+import React from 'react'
 
-function page({ params }: { params: { id: string } }) {
+function Page() {
+  const pathname= usePathname();
+  const router = useRouter();
+  const newPathname= pathname.split("/")[2];
+  console.log("this isthe pathname of the firs route",newPathname)
+  const id = ""
   return (
-    <>
-      <TransactionId transId={params.id as string} />
-    </>
-  );
+    <div className=''>
+        <Transactions bankDetailsId={newPathname as string}/>
+        <TransactionData  fid={newPathname as string}/>
+        <Button 
+        className='text-white'
+        onClick= {
+            () =>{
+              router.push("/transactions")
+            }
+        }>
+            go to transaction
+        </Button>
+    </div>
+  )
 }
 
-export default page;
+export default Page 

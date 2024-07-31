@@ -24,6 +24,7 @@ function TransactionDetail({ transId }: { transId: string }) {
     const formattedMinutes = String(minutes).padStart(2, "0");
     return `${formattedHours}:${formattedMinutes} ${ampm}`; // Format as 5:40 PM
   };
+  console.log("this isthe trassaction specifif c id ",transaction)
 
   if (!isLoading && session?.data?.user._id === transaction?.data?.userId) {
     return (
