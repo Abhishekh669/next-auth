@@ -90,8 +90,6 @@ function TransactionDetail({ transaction, error, isLoading }: TransactionDetailD
       </div>
     );
   }
-
-  return null; // Handle loading state or when user does not have permission
 }
 
 export default TransactionDetail;

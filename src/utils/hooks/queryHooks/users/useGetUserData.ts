@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchUserData = async (userId : string) =>{
     const response = await getUserData(userId);
-    console.log("this is the response in the useGetUserData",response)
     return response;
 }
 

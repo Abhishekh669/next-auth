@@ -137,6 +137,7 @@ export const {
   session: {
     strategy: "jwt",
   },
+  secret: process.env.AUTH_SECRET,
   pages: {
     signIn: "/sign-in",
   },
@@ -160,7 +161,6 @@ export const {
         session.user.name = token.name as string;
       }
 
-      console.log("thisis the session",session)
       return session;
     },
   },

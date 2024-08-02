@@ -1,20 +1,16 @@
-"use client"
 import Dashboard from '@/components/users/Dashboard';
 import Loader from '@/components/Loader';
 import { useGetUserData } from '@/utils/hooks/queryHooks/users/useGetUserData';
 import { useSession } from 'next-auth/react';
 import React from 'react'
+import { auth } from '@/auth';
 
-  function UserDashboard() {
-  const session = useSession();
-  console.log("thissi the sessin",session)
-  const { data, error, isLoading } = useGetUserData(
-    session?.data?.user._id as string
-  );
-  if(isLoading) return <Loader />;
-  return (
+ async  function UserDashboard() {
+      const session=await auth()
+      console.log("This is the session in teh dashboard",session)
+    return (
     <div>
-      <Dashboard />
+      <Dashboard user={session?.user}/>
     </div>
   )
 }
