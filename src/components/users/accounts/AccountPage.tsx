@@ -17,10 +17,8 @@ import { useGetUserBankDetails } from "@/utils/hooks/queryHooks/accounts/useGetU
 import { useSession } from "next-auth/react";
 import BankDetails from "./BankDetails";
 
-function AccountPage() {
-  const session = useSession();
-console.log("this is the session",session)
-  const {data, isLoading, error} = useGetUserBankDetails(session?.data?.user._id as string);
+function AccountPage({user} : {user : any}) {
+  const {data, isLoading, error} = useGetUserBankDetails(user._id as string);
   console.log("this is the data",data)
   return (
     <>
@@ -47,7 +45,7 @@ console.log("this is the session",session)
               </span>
             </SheetTitle>
           </SheetHeader>
-          <BankAccount  userId={session?.data?.user._id as string}/>
+          <BankAccount  userId={user._id as string}/>
         </SheetContent>
       </Sheet>
 

@@ -105,7 +105,6 @@ function Navigation() {
                       .querySelector('[data-state="open"]')
                       ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }))
                   }}
-                  prefetch={false}
                 >
                   <Contact className="h-5 w-5" />
                   Accounts

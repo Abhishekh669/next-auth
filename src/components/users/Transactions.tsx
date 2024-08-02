@@ -31,7 +31,7 @@ export interface TransactionData {
   totalPrice: number;
 }
 
-function Transactions({bankDetailsId} : {bankDetailsId : string}) {
+function Transactions({bankDetailsId, user} :any) {
   const [totalAmount, setTotalAmount] = useState(0);
   const categories = [
     "Health",
@@ -50,8 +50,7 @@ function Transactions({bankDetailsId} : {bankDetailsId : string}) {
     formState: { errors },
     reset,
   } = useForm<TransactionData>();
-  const  session = useSession();
-  console.log("this is the session in the transaction creationg",session)
+  console.log("this is the session in the transaction creationg",user)
   const { data, mutate: server_createTransactions } = useCreateTransactions();
   const addTransaction: SubmitHandler<FieldValues> = async (mineData) => {
     console.log("th sis the type of hte quntity", typeof mineData.quantity)
@@ -70,7 +69,7 @@ function Transactions({bankDetailsId} : {bankDetailsId : string}) {
       try {
         const newData = {
           ...mineData,
-          userId : session?.data?.user._id as string,
+          userId : user?._id as string,
           bankDetailsId : bankDetailsId as string,
           createdAt: new Date().toISOString(),
           totalAmount: calculatedTotalAmount
@@ -97,7 +96,7 @@ function Transactions({bankDetailsId} : {bankDetailsId : string}) {
 
       } catch (error) {
         console.log("Failed to create the transactions")
-        toast.error("Transaction failed to create")
+        toast.error("Transaction failed failed to create")
 
       }
 

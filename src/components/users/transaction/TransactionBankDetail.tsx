@@ -1,8 +1,12 @@
+"use client"
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useRendersCount } from 'react-use'
 
 function TransactionBankDetail(data : any) {
+  const session = useSession();
+  console.log("this is thesseeio jsut checking",session)
     console.log("this is the data in the transaction bank details ",data.data.data)
     const router = useRouter()
   return (

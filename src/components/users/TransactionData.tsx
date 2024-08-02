@@ -41,6 +41,8 @@ function TransactionData({fid, transactionData, error, isLoading} : TransactionD
 
   const router = useRouter();
   console.log("this is the router in teh transaction data",fid)
+  const session = useSession();
+  console.log("i ma the session for checking",session)
   if(isLoading) return <Loader />
   if(error && !isLoading) return <div className='text-white'>check your connection </div>
   if(transactionData?.data.length === 0 && !isLoading && !error) return <div className='text-white'>No transcaiotn yet in this bra ch bank</div>

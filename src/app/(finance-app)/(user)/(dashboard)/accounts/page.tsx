@@ -1,11 +1,13 @@
 
+import { auth } from "@/auth";
 import AccountPage from "@/components/users/accounts/AccountPage";
 import React from "react";
 
-function page() {
-  return (
+ async function page() {
+  const session = await auth();
+    return (
     <>
-     <AccountPage />
+     <AccountPage  user={session?.user}/>
     </>
   );
 }
