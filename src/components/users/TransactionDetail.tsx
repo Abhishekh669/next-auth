@@ -35,7 +35,7 @@ function TransactionDetail({ transaction, error, isLoading }: TransactionDetailD
 
   if (!isLoading && session?.data?.user._id === transaction?.data?.userId) {
     return (
-      <div className="text-white text-[16px]">
+      <div className="text-white text-[14px]">
         <div className="border-[1px] border-green-600">
           <div className="border-[1px] border-green-600 p-3 flex flex-col gap-y-2">
             <p className="text-center my-3 underline text-[28px] font-semibold text-red-600">User Info</p>

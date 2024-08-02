@@ -7,6 +7,7 @@ import React from 'react'
 
   function UserDashboard() {
   const session = useSession();
+  console.log("thissi the sessin",session)
   const { data, error, isLoading } = useGetUserData(
     session?.data?.user._id as string
   );

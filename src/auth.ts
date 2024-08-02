@@ -159,6 +159,8 @@ export const {
         session.user.username = token.username as string;
         session.user.name = token.name as string;
       }
+
+      console.log("thisis the session",session)
       return session;
     },
   },
