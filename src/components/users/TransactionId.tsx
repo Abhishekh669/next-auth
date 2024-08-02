@@ -3,15 +3,19 @@ import React from "react";
 import TransactionDetail from "./TransactionDetail";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useGetTransactionData } from "@/utils/hooks/queryHooks/transactions/useGetTransaction";
+import Loader from "../Loader";
 interface NewDataType{
   transId : string,
   prevId : string
 }
 function TransactionId({ transId, prevId }: NewDataType ) {
     const router = useRouter();
+    const { data: transaction, error, isLoading } = useGetTransactionData(transId);
     console.log("this is the transId",transId)
     console.log("this is the prevId",prevId)
-  return (
+  if(isLoading) return <Loader />
+  if(transaction && !isLoading) return (
     <div className="p-2">
       <div className="p-3 mt-10 flex flex-col gap-y-8 border-2 border-red-600 ">
         <div>
@@ -19,7 +23,7 @@ function TransactionId({ transId, prevId }: NewDataType ) {
             Transactions Details
           </span>
         </div>
-        <TransactionDetail transId={transId as string} />
+        <TransactionDetail   transaction={transaction} error={error} isLoading={isLoading}/>
       </div>
       <Button
         size={"sm"}

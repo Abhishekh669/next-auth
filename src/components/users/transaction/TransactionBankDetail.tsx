@@ -7,7 +7,7 @@ function TransactionBankDetail(data : any) {
     const router = useRouter()
   return (
     <div className='text-white flex flex-col gap-y-4 '>
-      {data   &&  data.data.data.length > 0 && data.data.data.map((account : any)=>(
+      {data   &&  data.data.data.length > 0 && data.data.data.slice().reverse().map((account : any)=>(
         <div 
             className='text-white m-4 border-2 cursor-pointer p-4 border-green-600' 
             key={account._id}

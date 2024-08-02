@@ -9,3 +9,10 @@ export interface transBankDetail{
     userId : string,
     bankDetailId : string
 }
+
+
+
+export interface TransBankDetails{
+    userId : string,
+    bankDetailsId : string
+}

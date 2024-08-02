@@ -2,7 +2,7 @@
 import { connectDB } from "@/lib/connectDB";
 import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
-import { transBankDetail } from "@/types/bankdetail.types";
+import { transBankDetail, TransBankDetails } from "@/types/bankdetail.types";
 import { Judson } from "next/font/google";
 import { FieldValues } from "react-hook-form";
 
@@ -106,9 +106,13 @@ export async function  getTransactionData(transactionId : string) {
 
 }
 
-export async function getUserTransactions(userId : string) {
+export async function getUserTransactions(data : TransBankDetails) {
     try {
-        const userTransaction = await Transaction.find({userId});
+        const userTransaction = await Transaction.find({
+            userId : data.userId,
+            bankDetailsId : data.bankDetailsId
+
+        });
         console.log("this isthe userTransaction",userTransaction)
         if(!userTransaction){
             return  {

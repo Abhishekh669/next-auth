@@ -12,6 +12,7 @@ import { useGetUserData } from '@/utils/hooks/queryHooks/users/useGetUserData';
 import { useSession } from 'next-auth/react';
 import { useGetUserTransactions } from '@/utils/hooks/queryHooks/transactions/useGetUserTransactions';
 import Loader from '../Loader';
+import { TransBankDetails } from '@/types/bankdetail.types';
 
 export interface DataType {
   _id: string
@@ -26,15 +27,20 @@ export interface DataType {
 
 }
 
-function TransactionData({fid } : {fid : string}) {
-  const session = useSession();
+interface TransactionData{
+  fid : string
+  transactionData : any,
+  error : any,
+  isLoading : boolean
+}
 
-  const { data: transactionData, error, isLoading } = useGetUserTransactions(session?.data?.user._id as string);
-  console.log("this is the data okie man ", transactionData);
-  console.log('this isthe isloading', isLoading);
+function TransactionData({fid, transactionData, error, isLoading} : TransactionData) {
+  
+
 
 
   const router = useRouter();
+  console.log("this is the router in teh transaction data",fid)
   if(isLoading) return <Loader />
   if(error && !isLoading) return <div className='text-white'>check your connection </div>
   if(transactionData?.data.length === 0 && !isLoading && !error) return <div className='text-white'>No transcaiotn yet in this bra ch bank</div>

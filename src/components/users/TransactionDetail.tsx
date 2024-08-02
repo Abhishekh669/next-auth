@@ -2,9 +2,14 @@
 import { useGetTransactionData } from "@/utils/hooks/queryHooks/transactions/useGetTransaction";
 import { useSession } from "next-auth/react";
 import React from "react";
+import Loader from "../Loader";
+interface TransactionDetailDataType{
+  transaction : any,
+  error : any,
+  isLoading : boolean
+}
 
-function TransactionDetail({ transId }: { transId: string }) {
-  const { data: transaction, error, isLoading } = useGetTransactionData(transId);
+function TransactionDetail({ transaction, error, isLoading }: TransactionDetailDataType) {
   const session = useSession();
 
   const formatDate = (dateString: string) => {
@@ -25,6 +30,8 @@ function TransactionDetail({ transId }: { transId: string }) {
     return `${formattedHours}:${formattedMinutes} ${ampm}`; // Format as 5:40 PM
   };
   console.log("this isthe trassaction specifif c id ",transaction)
+
+
 
   if (!isLoading && session?.data?.user._id === transaction?.data?.userId) {
     return (
