@@ -1,87 +1,101 @@
-"use client"
-import { useGetTransactions } from '@/utils/hooks/queryHooks/transactions/useGetTransactions';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, Separator } from '@radix-ui/react-dropdown-menu';
-import { Delete, Edit, Ellipsis, Trash } from 'lucide-react';
-import { StringSchemaDefinition } from 'mongoose';
+"use client";
 import React from 'react';
-import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '../ui/dropdown-menu';
-import { useDeleteTransaction } from '@/utils/hooks/mutateHooks/transactions/useDeleteTransation';
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '../ui/table';
 import { useRouter } from 'next/navigation';
-import { useGetUserData } from '@/utils/hooks/queryHooks/users/useGetUserData';
 import { useSession } from 'next-auth/react';
-import { useGetUserTransactions } from '@/utils/hooks/queryHooks/transactions/useGetUserTransactions';
 import Loader from '../Loader';
-import { TransBankDetails } from '@/types/bankdetail.types';
+import { Ellipsis, Trash } from 'lucide-react';
+import { useDeleteTransaction } from '@/utils/hooks/mutateHooks/transactions/useDeleteTransation';
 
 export interface DataType {
-  _id: string
-  name: string
-  createdAt: string,
-  quantity: number,
-  price: number,
-  totalAmount: number,
-  category: string,
-  userId : string
-
-
+  _id: string;
+  name: string;
+  createdAt: string;
+  quantity: number;
+  price: number;
+  totalAmount: number;
+  category: string;
+  userId: string;
 }
 
-interface TransactionData{
-  fid : string
-  transactionData : any,
-  error : any,
-  isLoading : boolean
+interface TransactionData {
+  fid: string;
+  transactionData: any;
+  error: any;
+  isLoading: boolean;
 }
 
-function TransactionData({fid, transactionData, error, isLoading} : TransactionData) {
-  
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
+  return date.toLocaleDateString(undefined, options);
+}
 
 
 
+function formatTime(dateString: string) {
+  const date = new Date(dateString);
+  const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' } as const;
+  return date.toLocaleTimeString(undefined, options);
+}
+
+function TransactionData({ fid, transactionData, error, isLoading }: TransactionData) {
   const router = useRouter();
-  console.log("this is the router in teh transaction data",fid)
-  const session = useSession();
-  console.log("i ma the session for checking",session)
-  if(isLoading) return <Loader />
-  if(error && !isLoading) return <div className='text-white'>check your connection </div>
-  if(transactionData?.data.length === 0 && !isLoading && !error) return <div className='text-white'>No transcaiotn yet in this bra ch bank</div>
+  const {mutate : server_deleteTransaction} = useDeleteTransaction();
   
-  if(transactionData?.data.length > 0 && !isLoading && !error) return (
-    <div className="bg-primary text-primary-foreground ">
-      <div className="container mx-auto py-8">
-        <Table className='text-[#25D366]    '>
-          <TableHeader>
-            <TableRow className="bg-primary/90 border-whites" >
-              <TableHead className="px-4 py-3 text-left font-semibold">Name</TableHead>
-              <TableHead className="hidden md:table-cell px-4 py-3  font-semibold text-[15px]">Quantity</TableHead>
-              <TableHead className="hidden md:table-cell px-4 py-3  font-semibold text-[15px]">Price</TableHead>
-              <TableHead className="px-4 py-3 text-left font-semibold text-[15px]">Category</TableHead>
-              <TableHead className="px-2 py-3 font-semibold text-[15px]">Total Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactionData && transactionData.data && transactionData.data.slice().reverse().map((transaction: DataType) => (
-              <TableRow
-                key={transaction._id} 
-                className='active:bg-[#25D366] cursor-pointer active:text-white hover:bg-[#25D366] hover:text-white'
-                onClick={()=>{
-                      router.push(`/transactions/${fid}/${transaction._id}`)
-                }}
-              >
-                <TableCell className="font-medium">{(transaction.name).charAt(0).toUpperCase() + (transaction.name).slice(1)}</TableCell>
-                <TableCell className="hidden md:table-cell font-medium px-4 py-3 bg-red-600">{transaction.quantity}</TableCell>
-                <TableCell className="hidden md:table-cell px-4 py-3 font-medium  bg-green-600">${transaction.price}</TableCell>
-                <TableCell className="text-left">{transaction.category}</TableCell>
-                <TableCell className="font-medium">${transaction.totalAmount}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+ 
 
+  if (isLoading) return <Loader />;
+  if (error && !isLoading) return <div className='text-white'>Check your connection</div>;
+  if (transactionData?.data.length === 0 && !isLoading && !error) return <div className='text-white'>No transaction yet in this branch bank</div>;
+
+  if (transactionData?.data.length > 0 && !isLoading && !error) return (
+    <div className="bg-primary text-primary-foreground">
+      <div className="container mx-auto py-8 flex flex-col gap-y-8">
+        {transactionData.data.slice().reverse().map((transaction: DataType) => (
+          <div key={transaction._id} className='flex flex-col justify-between text-white w-full border-[1px] border-white'>
+           <div className='flex border-[1px] p-3 border-green-600 justify-between text-lg font-semibold'>
+           <div >
+              {formatDate(transaction.createdAt)}
+            </div>
+            <div >
+              {formatTime(transaction.createdAt)}
+            </div>
+            <div
+              onClick={() => server_deleteTransaction(
+                {transId  : transaction._id}
+               
+              )}
+            >
+              <Trash className='text-red-600 text-[18px]' />
+            </div>
+           </div>
+            <div className='flex justify-between mt-2 p-4 cursor-pointer'
+              onClick={
+                () =>{
+                  router.push(`/transactions/${fid}/${transaction._id}`)
+                }
+              }
+            >
+              <span>
+                {(transaction.name).charAt(0).toUpperCase() + (transaction.name).slice(1)}
+              </span>
+              <span className='hidden md:inline-block'>
+                ${transaction.price} (no. of items)
+              </span>
+              <span className='hidden md:inline-block'>
+                {transaction.quantity} (per item)
+              </span>
+              <span>
+                ${transaction.totalAmount} (total)
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
+
+  return null; // Fallback if no conditions match
 }
 
 export default TransactionData;

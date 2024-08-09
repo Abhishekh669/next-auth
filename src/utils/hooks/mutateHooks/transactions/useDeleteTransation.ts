@@ -7,7 +7,7 @@ export const useDeleteTransaction = () => {
         mutationFn: deleteTransaction,
         onSuccess: () => {
             toast.success("Transaction deleted successfully")
-            queryClient.invalidateQueries({ queryKey: ['allTransactions'] })
+            queryClient.invalidateQueries({ queryKey: ['UserTransactions'] })
         },
         onError: () => { },
         onSettled: () => { },

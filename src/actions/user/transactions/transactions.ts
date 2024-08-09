@@ -58,13 +58,18 @@ export async function getTransactions(){
         }
         
     }
+
+}
+
+interface IdType{
+    transId : string,
+    bankDetailsId : string
 }
 
 
-export async function deleteTransaction(transaction: {transactionId : string}) {
-        console.log("i am deleted ", transaction)
+export async function deleteTransaction({transId} : {transId : string}) {
         try {
-            const transData = await Transaction.findByIdAndDelete({_id : transaction.transactionId})
+            const transData = await Transaction.findByIdAndDelete({_id : transId})
             console.log("thi is the transData",transData)
             if(!transData){
                 return {

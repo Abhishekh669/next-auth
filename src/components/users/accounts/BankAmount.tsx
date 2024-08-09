@@ -14,7 +14,7 @@ interface BankDetail {
   head_office: string;
 }
 
-function BankAccount({ userId }: { userId: string }) {
+function BankAmount({ userId }: { userId: string }) {
   const [submitting, setSubmitting] = useState(false); // State to track form submission
 
   const { data: bankDetails, mutate: server_bankDetails } = useCreateBankDetails();
@@ -165,4 +165,4 @@ function BankAccount({ userId }: { userId: string }) {
   );
 }
 
-export default BankAccount;
+export default BankAmount;

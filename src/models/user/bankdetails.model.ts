@@ -9,6 +9,11 @@ const bankDetailSchema = new Schema({
         type : String,
         required : true, 
     },
+    head_office : {
+        type : String,
+        required : true,
+    },
+    
      bank_branch : {
         type : String,
         required : true,

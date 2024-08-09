@@ -36,6 +36,9 @@ function BankDetails({data, isLoading, error} : DataType) {
           </CardHeader>
           <CardContent>
             <div>
+              <span className='font-semibold'>Head Office : {account.head_office}</span>
+            </div>
+            <div>
                 <span className='font-semibold'>Branch</span> : {account.bank_branch}
             </div>
           </CardContent>

@@ -119,12 +119,12 @@ function Transactions({bankDetailsId, user} :any) {
             </span>
             <Button
               size={"sm"}
-              className="text-white bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px] hover:bg-green-500 "
+              className="text-white h-[50px] text-[20px] bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px] hover:bg-green-500 "
               onClick={() =>
                 reset()
               }
             >
-              <Plus className="size-4 mr-2 text-white" />
+              <Plus className="size-4 mr-2 text-[20px] text-white" />
               Add New
             </Button>
           </div>

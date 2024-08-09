@@ -25,7 +25,7 @@ function AccountPage({user} : {user : any}) {
       <Sheet>
         <Card className="border-none drop-shadow-sm text-white">
           <CardHeader className="lg:items-center lg:justify-between gap-y-2 lg:flex-row">
-            <CardTitle className="text-xl line-clamp-1">Account Page</CardTitle>
+            <CardTitle className="text-xl line-clamp-1">Account Details</CardTitle>
             <SheetTrigger asChild>
               <Button
                 size={"sm"}

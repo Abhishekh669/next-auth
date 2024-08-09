@@ -21,6 +21,7 @@ function TransactionBankDetail(data : any) {
                 }
             }
         >
+          
                 <h1 className='text-white'>Transaciton of the {account.bank_name}</h1>
                 <span>Bank Branch : {account.bank_branch}</span>
         </div>

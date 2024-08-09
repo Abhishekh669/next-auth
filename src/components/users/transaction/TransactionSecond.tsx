@@ -37,7 +37,7 @@ function TransactionSecond ({user} : {user : any}) {
     );
   if (transactionData?.data.length > 0 && !isLoading && !error)
     return (
-      <div className="p-4">
+      <div className="p-1">
         <Transactions bankDetailsId={newPathname as string} user={user} />
         <TransactionData
           fid={newPathname}
@@ -45,15 +45,17 @@ function TransactionSecond ({user} : {user : any}) {
           error={error}
           isLoading={isLoading}
         />
-        <Button
+       <div className="w-full flex justify-center">
+       <Button
           size={"sm"}
           onClick={()=>{
             router.push("/transactions")
           }}
-          className="text-white  mb-2 w-full h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
+          className="text-white  mb-2 w-[90%] h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
         >
           Go back To Transaction
         </Button>
+       </div>
       </div>
     );
 }
