@@ -1,6 +1,8 @@
 "use server";
 
+import TransactionBankDetail from "@/components/users/transaction/TransactionBankDetail";
 import { BankDetail } from "@/models/user/bankdetails.model";
+import { Transaction } from "@/models/user/transactions.model";
 import { FieldValues } from "react-hook-form";
 
 export async function createBank(data: FieldValues) {
@@ -67,4 +69,48 @@ export async function userBankDetail(userId : string){
             
         }
 
+}
+
+
+
+export async function deleteBankDetails( {bankDetailsId } : {bankDetailsId : string}){
+    console.log("this is the data to be deleted ", bankDetailsId)
+    try {
+        const bankDetails = await BankDetail.findById({_id : bankDetailsId})
+        if(!bankDetails){
+            return {
+                message : "No such bank found",
+                data : null
+            }
+        }
+        const  deleteBankDetails = await BankDetail.findByIdAndDelete({_id : bankDetailsId})
+        if(!deleteBankDetails){
+            return {
+                error : "Failed to delete the bank details"
+            }
+        }
+        const transactionWithBankDetailsId = await Transaction.find({bankDetailsId : bankDetailsId})
+
+        if(!transactionWithBankDetailsId){
+            return  {
+                message : "Transacton Bank Detail is empty",
+                data : null
+            }
+        }
+
+        const  deleteTransactionWithBankDetails = await Transaction.deleteMany({bankDetailsId : bankDetailsId}) 
+        if(!deleteTransactionWithBankDetails){
+            return {message : "Failed to delete the transaction section", data : null}
+
+        }
+
+        return {
+            message : "Successfully deleted all the transaciton and the bank details", data : null
+            
+        }
+    } catch (error) {
+        return {error: "Failed to delete the data "}
+        
+    }
+    
 }
