@@ -2,16 +2,21 @@
 import React from "react";
 import TransactionDetail from "./TransactionDetail";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useGetTransactionData } from "@/utils/hooks/queryHooks/transactions/useGetTransaction";
 import Loader from "../Loader";
 interface NewDataType{
   transId : string,
   prevId : string
 }
-function TransactionId({ transId, prevId }: NewDataType ) {
+function TransactionId({session}:{session : any} ) {
     const router = useRouter();
+    const pathname=usePathname();
+  console.log("this ishte chekcing",pathname.split("/"))
+  const transId=pathname.split("/")[3];
+  const prevId=pathname.split("/")[2];
     const { data: transaction, error, isLoading } = useGetTransactionData(transId);
+    console.log("this is the data in the transaction in the two id amn",transaction)
     console.log("this is the transId",transId)
     console.log("this is the prevId",prevId)
   if(isLoading) return <Loader />
@@ -23,7 +28,7 @@ function TransactionId({ transId, prevId }: NewDataType ) {
             Transactions Details
           </span>
         </div>
-        <TransactionDetail   transaction={transaction} error={error} isLoading={isLoading}/>
+        <TransactionDetail   transaction={transaction} error={error} isLoading={isLoading} session={session}/>
       </div>
       <Button
         size={"sm"}

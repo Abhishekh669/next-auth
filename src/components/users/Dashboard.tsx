@@ -22,8 +22,8 @@ export default  function Dashboard({user}  : {user : any}) {
 console.log("this is the session",user)
 const {data, error, isLoading} = useGetUserData(user._id);
 if(isLoading) return <Loader />
-if(error) return <div>failed to get user </div>
-   if(!isLoading && data?.data) return (
+if(error) return <div className="text-white">no internet connection </div>
+if(!isLoading && data?.data) return ( 
     <main className="flex flex-1 flex-col gap-4 text-white p-4 md:gap-8 md:p-8">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card x-chunk="dashboard-01-chunk-0">

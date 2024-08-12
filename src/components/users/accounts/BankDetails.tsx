@@ -27,9 +27,10 @@ function BankDetails({ data, isLoading, error }: DataType) {
   const router = useRouter();
   const { mutate: server_deleteBankDetails } = useDeleteBankDetails();
   if (isLoading) return <Loader />;
+  if(  error) return <div className="text-white">no interconneciotn</div>
   if (!data?.data.length && !isLoading && !error)
     return <div className="text-white">No account yet</div>;
-  console.log("this is the data in teh bankdetail apage", data.data);
+  console.log("this is the data in teh bankdetail apage", data?.data);
   if (data?.data && !isLoading && !error)
     return (
       <div className="text-green-600 p-4 flex flex-col gap-y-4">

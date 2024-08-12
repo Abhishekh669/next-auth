@@ -6,11 +6,13 @@ import Loader from "../Loader";
 interface TransactionDetailDataType{
   transaction : any,
   error : any,
-  isLoading : boolean
+  isLoading : boolean,
+  session : any
 }
 
-function TransactionDetail({ transaction, error, isLoading }: TransactionDetailDataType) {
-  const session = useSession();
+function TransactionDetail({ transaction, error, isLoading, session}: TransactionDetailDataType) {
+  console.log("this is the transaction in the inner", transaction)
+  console.log("this is the use",session?.user)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -33,7 +35,7 @@ function TransactionDetail({ transaction, error, isLoading }: TransactionDetailD
 
 
 
-  if (!isLoading && session?.data?.user._id === transaction?.data?.userId) {
+  if (!isLoading && session?.user._id === transaction?.data?.userId) {
     return (
       <div className="text-white text-[14px]">
         <div className="border-[1px] border-green-600">
