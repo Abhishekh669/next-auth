@@ -47,13 +47,13 @@ function TransactionDetail({ transaction, error, isLoading, session}: Transactio
             <div>
               <span className="font-semibold text-white">Name : </span>
               <span className="text-green-600">
-                {session && session.data && session.data.user && session.data.user.name
-                  ? session.data.user.name.charAt(0).toUpperCase() + session.data.user.name.slice(1)
+                {session &&  session.user && session.user.name
+                  ? session.user.name.charAt(0).toUpperCase() + session.user.name.slice(1)
                   : ""}
               </span>
             </div>
           
-            <div className="text-white font-semibold">Email : <span className="text-green-600 font-normal">{session?.data?.user?.email}</span></div>
+            <div className="text-white font-semibold">Email : <span className="text-green-600 font-normal">{session?.user?.email}</span></div>
           </div>
           <div className="border-[1px] border-green-600 p-3 flex flex-col gap-y-2">
             <div className="my-3">
