@@ -1,88 +1,82 @@
-"use client"
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useMedia } from "react-use";
+import { Home, ArrowRightLeft, Contact, BadgeDollarSign, Settings, Package2, Menu } from "lucide-react";
+import NavItem from "./DashboardCard"; // Import the correct NavItem component
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
 
-import { TrendingUp } from "lucide-react"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+export default function Navigation() {
+  const pathname = usePathname();
+  const isMobile = useMedia("(max-width: 1024px)", false);
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
+  const routes = [
+    { href: "/dashboard", label: "Overview", icon: Home },
+    { href: "/transactions", label: "Transactions", icon: ArrowRightLeft },
+    { href: "/accounts", label: "Accounts", icon: Contact, badgeCount: 6 },
+    { href: "/budgets", label: "Budgets", icon: BadgeDollarSign },
+    { href: "/settings", label: "Settings", icon: Settings },
+  ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig
-
-export function Component() {
-  return (
-    <Card>
-      <CardHeader className="text-white">
-        <CardTitle>Line Chart - Linear</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent className="text-white bg-white">
-        <ChartContainer config={chartConfig} className="text-white">
-          <LineChart
-          className="text-white"
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
+  if (isMobile) {
+    return (
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="shrink-0 size-6 md:hidden border-none ml-3"
           >
-            <CartesianGrid vertical={false} className="text-white" />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-              className="text-white"
-            />
-            {/* <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-              labelClassName="text-black"
-            /> */}
-            <Line
-              dataKey="desktop"
-              type="linear"
-              stroke="var(--color-desktop)"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2  text-white text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
-  )
+            <Menu className="h-8 w-8" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent
+          side="left"
+          className="flex  flex-col bg-red-600 text-green-600"
+        >
+          <nav className="grid gap-2 text-lg font-medium">
+            <Link
+              href="#"
+              className="flex items-center gap-2 text-lg font-semibold"
+            >
+              <Package2 className="h-6 w-6" />
+              <span className="sr-only">Acme Inc</span>
+            </Link>
+            {routes.map((route) => (
+              <NavItem
+                key={route.href}
+                href={route.href}
+                label={route.label}
+                icon={route.icon}
+                badgeCount={route.badgeCount}
+                isActive={pathname === route.href}
+                onClick={() => {
+                  document
+                    .querySelector('[data-state="open"]')
+                    ?.dispatchEvent(new Event("click", { bubbles: true, cancelable: true }));
+                }}
+              />
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  return (
+    <nav className='hidden lg:flex items-center gap-x-2'>
+      {routes.map((route) => (
+        <NavItem
+          key={route.href}
+          href={route.href}
+          label={route.label}
+          icon={route.icon}
+          badgeCount={route.badgeCount}
+          isActive={pathname === route.href}
+        />
+      ))}
+    </nav>
+  );
 }

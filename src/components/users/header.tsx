@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
   
   return (
    
-    <header className=" h-[7rem]  flex flex-col  items-center bg-gradient-to-t from-[#00D399] to-[#056817]">
+    <header className=" hidden  h-[7rem]  md:flex md:flex-col  md:items-center bg-gradient-to-t from-[#00D399] to-[#056817]">
       <div className="w-full h-full p-2 flex   items-center">
           <HeaderLogo />
           <Navigation />

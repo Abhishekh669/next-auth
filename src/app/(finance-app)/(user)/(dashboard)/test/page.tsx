@@ -1,11 +1,9 @@
-import { Component } from '@/components/test/Chart'
 import React from 'react'
-
+import Chart from "@/components/test/Chart"
 function page() {
   return (
-    <div className=''>
-      {/* this is the page */}
-      <Component />
+    <div className='min-h-screen min-w-screen bg-red-600'>
+      <Chart  />
     </div>
   )
 }

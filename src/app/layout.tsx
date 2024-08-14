@@ -4,6 +4,10 @@ import "./globals.css";
 import { QueryProvider } from "@/utils/providers/QueryProvider";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import '@mantine/charts/styles.css';
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} relative `}>
       <SessionProvider>
         <QueryProvider>
+          <MantineProvider>
           {children}
-          <Toaster className="bg-white text-black" />
+          </MantineProvider>
+          <Toaster className="bg-white text-black " />
         </QueryProvider>
       </SessionProvider>
       </body>

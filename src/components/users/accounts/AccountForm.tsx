@@ -1,11 +1,20 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Plus } from 'lucide-react'
 import React from 'react'
 import BankAmount from './BankAmount'
+import BankInfo from './BankInfo'
+import { useGetBankBalance } from '@/utils/hooks/queryHooks/accounts/useGetBankBalance'
 
-function AccountForm() {
+export interface AccountFormType{
+  session : any,
+  bankDetailsId : string
+}
+function AccountForm({session, bankDetailsId} : AccountFormType) {
+
+  
+ 
   return (
     <>
     <Sheet>
@@ -31,7 +40,9 @@ function AccountForm() {
             </span>
           </SheetTitle>
         </SheetHeader>
+        <BankInfo session={session} bankDetailsId={bankDetailsId} />
       </SheetContent>
+     
     </Sheet>
 
 

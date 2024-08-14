@@ -1,9 +1,15 @@
 "use server";
 
+import { auth } from "@/auth";
 import TransactionBankDetail from "@/components/users/transaction/TransactionBankDetail";
+import { BankBalance } from "@/models/user/bankbalance";
 import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
 import { FieldValues } from "react-hook-form";
+
+
+
+
 
 export async function createBank(data: FieldValues) {
     console.log("this is the data in the bank details", data);
@@ -113,4 +119,51 @@ export async function deleteBankDetails( {bankDetailsId } : {bankDetailsId : str
         
     }
     
+}
+
+
+export async function createBankBalance(data : any){
+    console.log("this isthe data in t back end of the bank data",data)
+    try {
+        const newBankBalance = new BankBalance(data)
+        const savedBankBalance = await newBankBalance.save()
+        console.log("this is the bank details ", savedBankBalance)
+        if(!savedBankBalance)return {
+            message : "failed to create the bank balance",
+            data : null
+
+        }
+        return {
+            message : "Successfully created bank balance",
+            data : JSON.stringify(savedBankBalance)
+        }
+    } catch (error) {
+        return {
+            error : "Failed to create the bank balance "
+        }
+        
+    }
+
+}
+
+
+export async function  getBankBalance(data: any){
+    console.log("this is the data fro mtegh get bank balance ", data )
+    try {
+        const bankbalance = await BankBalance.find({userId : data.userId, bankDetailsId : data.bankDetailsId})
+        if(!bankbalance){return {
+            message : "No data ",
+            data : null
+        }}
+        console.log("i think i got data",  bankbalance)
+        return {
+            message : "successfully get data",
+            data : JSON.stringify(bankbalance)
+        }
+    } catch (error) {
+        return {
+            error : "Failed to get the bank balance"
+        }
+        
+    }
 }

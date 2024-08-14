@@ -228,8 +228,7 @@ function Transactions({bankDetailsId, user} :any) {
                   </span>
                 )}
               </div>
-              <SheetFooter>
-                <SheetClose asChild>
+         
                   <div>
                     <Button
                       size={"sm"}
@@ -242,8 +241,7 @@ function Transactions({bankDetailsId, user} :any) {
 
 
                   </div>
-                </SheetClose>
-              </SheetFooter>
+             
             </SheetDescription>
           </form>
         </SheetContent>

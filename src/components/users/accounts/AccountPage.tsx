@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 import BankDetails from "./BankDetails";
 
 function AccountPage({user} : {user : any}) {
+  console.log("this is the useri nthe account page",user)
   const {data, isLoading, error} = useGetUserBankDetails(user._id as string);
   console.log("this is the data",data)
   return (
