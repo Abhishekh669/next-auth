@@ -53,11 +53,7 @@ function AccountBarGraph({ newData, bankBalance }: { newData: { userId: string, 
             ):(
                 <div className='flex flex-col  gap-y-5'>
                     At leat 4 transaction is needed
-                    <Button 
-                    className='text-white mb-2 w-full h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px]'
-                    onClick={()=>{
-                        router.push(`/transactions/${newData.bankDetailsId}`)
-                    }}>Go To Transaction</Button>
+                   <Link href={`/transactions/${newData.bankDetailsId}`} className='text-white mb-2 w-full h-[50px] text-center p-3 hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px'>Go To Transaction</Link>
                 </div>
 
             )
