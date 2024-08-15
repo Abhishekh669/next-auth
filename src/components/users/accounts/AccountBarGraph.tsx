@@ -6,7 +6,6 @@ import { BankBalanceType } from './BankData'
 import { DataType } from '../TransactionData'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 function AccountBarGraph({ newData, bankBalance }: { newData: { userId: string, bankDetailsId: string }, bankBalance: BankBalanceType[] }) {
     const { data: transData, isLoading, error } = useGetUserTransactions(newData);
@@ -15,7 +14,6 @@ function AccountBarGraph({ newData, bankBalance }: { newData: { userId: string, 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading transactions.</div>;
 
-    const router = useRouter()
     // Transform the transaction data
     const data = transData?.data.map((trans: DataType) => {
         const date = new Date(trans.createdAt);
