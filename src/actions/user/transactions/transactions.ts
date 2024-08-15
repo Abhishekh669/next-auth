@@ -161,3 +161,8 @@ export async function transactionFromBankDetail(idData  :  transBankDetail){
         
     }
 }
+
+
+export async function getTransEachField(data : {userId : string, bankDetailsId : string}){
+    
+}

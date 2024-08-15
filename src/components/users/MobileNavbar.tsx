@@ -14,9 +14,10 @@ export default function Component() {
   const pathname = usePathname();
 
   return (
-    <footer className="fixed  md:hidden rounded-[2px] bottom-0 p-3 bg-gradient-to-t from-[#00D399] to-[#056817] text-white left-0 w-full bg-background flex justify-between items-center z-50">
+    <footer className="fixed md:hidden rounded-[2px] bottom-0 p-5 bg-gradient-to-t from-[#00D399] to-[#056817] text-white left-0 w-full bg-background flex justify-between items-center z-50">
       {routes.map((route) => {
-        const isActive = pathname === route.href;
+        // Check if the current pathname starts with the route's href
+        const isActive = pathname === route.href || pathname.startsWith(route.href + '/');
 
         return (
           <Link

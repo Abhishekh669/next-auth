@@ -167,3 +167,47 @@ export async function  getBankBalance(data: any){
         
     }
 }
+
+
+
+export async function getBankInfo(data : {userId : string, bankDetailsId : string}){
+    try {
+        const bankInfo = await BankDetail.find({
+            userId : data.userId,
+            _id : data.bankDetailsId
+        })
+        if(!bankInfo) return {
+            message : "No such bank info",
+            data : null
+        }
+        return {
+            message : "Got data successfully",
+            data : JSON.stringify(bankInfo)
+        }
+    } catch (error) {
+        return {
+            error : "failed to get the data"
+        }
+        
+    }
+}
+
+export async function updateBankInfo(data : {bankBalanceId : string,  updateData : { accountNumber : string, bankBalance : string} }){
+
+    try {
+        const updateBank = await BankBalance.findByIdAndUpdate({_id : data.bankBalanceId }, data.updateData, {new : true})
+        if(!updateBank)return {
+            message : "failed to update the data", 
+            data : null
+        }
+        return {
+            message  :"successfully update the data ",
+            data : JSON.stringify(updateBank)
+        }
+        
+    } catch (error) {
+        return {error : "Failed to update the data"}
+        
+    }
+
+}
