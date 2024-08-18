@@ -27,7 +27,7 @@ function AccountForm({session, bankDetailsId} : AccountFormType) {
               className="w-full  text-white bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[10px] hover:bg-green-500 "
             >
               <Plus className="size-4 mr-2" />
-              Add Bank
+              Add Bank 
             </Button>
           </SheetTrigger>
         </CardHeader>

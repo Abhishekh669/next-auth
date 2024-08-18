@@ -14,49 +14,55 @@ function AccountBarGraph({ newData, bankBalance }: { newData: { userId: string, 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading transactions.</div>;
 
-    // Transform the transaction data
-    const data = transData?.data.map((trans: DataType) => {
+    // Aggregate transaction data by date
+    const aggregatedData = (transData?.data || []).reduce((acc, trans: DataType) => {
         const date = new Date(trans.createdAt);
         const formattedDate = date.toLocaleString('default', { month: 'short', day: 'numeric' });
-        return {
-            date: formattedDate,
-            amount: trans.totalAmount,
-        };
-    }) || []; // Ensure data is an array even if transData is undefined
 
-    console.log("this is the data", data);
-
- return (
-       <div>
-        {
-            (transData && transData.data.length >=  3) ? (
-                <div className='flex flex-col gap-y-12'>
-                <div>
-                  <p className='text-center text-white font-semibold text-[20px]'>Bar-Graph of Transactions : </p>
-                </div>
-                  <BarChart
-                      h={300}
-                      className='text-white'
-                      data={data}
-                      dataKey="date"
-                      xAxisLabel="Date"
-                      yAxisLabel="Amount($)"
-                      series={[
-                          { name: 'amount', color: 'blue.6' },
-                      ]}
-                  />
-      
-      
-              </div>
-            ):(
-                <div className='flex flex-col  gap-y-5'>
-                    At leat 4 transaction is needed
-                   <Link href={`/transactions/${newData.bankDetailsId}`} className='text-white mb-2 w-full h-[50px] text-center p-3 hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px'>Go To Transaction</Link>
-                </div>
-
-            )
+        if (!acc[formattedDate]) {
+            acc[formattedDate] = 0;
         }
-       </div>
+        acc[formattedDate] += trans.totalAmount;
+
+        return acc;
+    }, {} as Record<string, number>);
+
+    // Convert aggregated data into the format required by BarChart
+    const chartData = Object.entries(aggregatedData).map(([date, amount]) => ({
+        date,
+        amount
+    }));
+
+    console.log("Aggregated data for chart:", chartData);
+
+    return (
+        <div>
+            {chartData.length >= 2 ? (
+                <div className='flex flex-col gap-y-12'>
+                    <div>
+                        <p className='text-center text-white font-semibold text-[20px]'>Bar-Graph of Transactions :</p>
+                    </div>
+                    <BarChart
+                        h={300}
+                        className='text-white'
+                        data={chartData}
+                        dataKey="date"
+                        xAxisLabel="Date"
+                        yAxisLabel="Amount($)"
+                        series={[
+                            { name: 'amount', color: 'blue.6' },
+                        ]}
+                    />
+                </div>
+            ) : (
+                <div className='flex flex-col gap-y-5'>
+                    At least 3 transactions are needed
+                    <Link href={`/transactions/${newData.bankDetailsId}`} className='text-white mb-2 w-full h-[50px] text-center p-3 hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px]'>
+                        Go To Transaction
+                    </Link>
+                </div>
+            )}
+        </div>
     );
 }
 

@@ -211,3 +211,25 @@ export async function updateBankInfo(data : {bankBalanceId : string,  updateData
     }
 
 }
+
+
+export async function checkBankBalanceData(data : {userId : string, bankDetailsId : string}){
+    console.log("this is the data in the back end fro client", data)
+    try {
+        const checkData = await BankBalance.find({userId : data.userId, bankDetailsId : data.bankDetailsId})
+        console.log("this is the check data in backend",checkData)
+        if(!checkData) return {
+            message : "No data found",
+            data : null
+        }
+        return {
+            message : "Got the bank details data",
+            data : JSON.stringify(checkData)
+        }
+    } catch (error) {
+        return {
+            error : "Failed to get the data"
+        }
+        
+    }
+}

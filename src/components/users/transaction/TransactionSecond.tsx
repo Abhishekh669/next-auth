@@ -8,6 +8,8 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { TransBankDetails } from "@/types/bankdetail.types";
 import Loader from "@/components/Loader";
+import { useGetCheckBankBalance } from "@/utils/hooks/queryHooks/accounts/useGetCheckBankBalance";
+import Link from "next/link";
 
 function TransactionSecond ({user} : {user : any}) {
   const pathname = usePathname();
@@ -20,44 +22,52 @@ function TransactionSecond ({user} : {user : any}) {
     userId: user._id as string,
     bankDetailsId: newPathname,
   };
+  const {data : checkData, error : checkError, isLoading : checkIsLoading} = useGetCheckBankBalance(data);
+  console.log("this isthe checkBankBalance", checkData)
   const {
     data: transactionData,
     error,
     isLoading,
   } = useGetUserTransactions(data);
   if (isLoading) return <Loader />;
-  if (error && !isLoading)
-    return <div className="text-white">check your connection </div>;
-  if (transactionData?.data.length === 0 && !isLoading && !error)
-    return (
-      <div className="text-white">
-        <Transactions bankDetailsId={newPathname as string} user={user} />
-        No transcaiotn yet in this bra ch bank
-      </div>
-    );
-  if (transactionData?.data.length > 0 && !isLoading && !error)
-    return (
+  if (error && !isLoading) return <div className="text-white">check your connection </div>;
+ if(checkData && checkData.data.length > 0 && !checkIsLoading && !checkError)
+  return (
       <div className="p-1">
         <Transactions bankDetailsId={newPathname as string} user={user} />
-        <TransactionData
-          fid={newPathname}
-          transactionData={transactionData}
-          error={error}
-          isLoading={isLoading}
-        />
-       <div className="w-full flex justify-center">
-       <Button
-          size={"sm"}
-          onClick={()=>{
-            router.push("/transactions")
-          }}
-          className="text-white  mb-2 w-[90%] h-[50px] hover:bg-[#22c55e] text-[20px] mt-4 bg-gradient-to-t from-[#00D399] to-[#056817]  rounded-[5px]  "
-        >
-          Go back To Transaction
-        </Button>
-       </div>
+        {
+          (transactionData?.data.length > 0 && !isLoading && !error) ?  (
+           <div className="w-full">
+             <TransactionData
+            fid={newPathname}
+            transactionData={transactionData}
+            error={error}
+            isLoading={isLoading}
+          />
+           </div>
+          ) : (
+            <div className="text-white">
+              no data yet
+            </div>
+          )
+        }
+      
       </div>
     );
+    else{
+      return <div className="p-4 text-white flex flex-col gap-y-8">
+        <div>
+        first you should add your bank balance details for it 
+        </div>
+
+        <div>
+          <Link href={`/accounts/${newPathname}`} className="p-4 bg-green-600">
+              add the bank balance
+          </Link>
+        </div>
+
+      </div>
+    }
 }
 
 export default TransactionSecond;

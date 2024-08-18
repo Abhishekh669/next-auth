@@ -1,5 +1,6 @@
 "use server"
 import { connectDB } from "@/lib/connectDB";
+import { BankBalance } from "@/models/user/bankbalance";
 import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
 import { transBankDetail, TransBankDetails } from "@/types/bankdetail.types";
@@ -13,6 +14,8 @@ export async function  createTransactions(data :FieldValues){
     if(data){
         try {
             console.log("this isthe data of the transaction in the create Transation",data)
+            
+            
             const transData = await new Transaction(data);
             console.log("this is the transData",transData);
             const savedData = await transData.save();

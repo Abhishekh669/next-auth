@@ -29,7 +29,9 @@ export const useCreateTransactions = () =>{
             queryClient.invalidateQueries({queryKey : ['UserTransactions']})
             
         },
-        onError : () =>{},
+        onError : () =>{
+            toast.error("failed to create check your account")
+        },
         onSettled : () =>{},
         onMutate : () => {},
     })
