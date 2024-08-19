@@ -15,7 +15,7 @@ function AccountBarGraph({ newData, bankBalance }: { newData: { userId: string, 
     if (error) return <div>Error loading transactions.</div>;
 
     // Aggregate transaction data by date
-    const aggregatedData = (transData?.data || []).reduce((acc, trans: DataType) => {
+    const aggregatedData = (transData?.data || []).reduce((acc : any, trans: DataType) => {
         const date = new Date(trans.createdAt);
         const formattedDate = date.toLocaleString('default', { month: 'short', day: 'numeric' });
 
