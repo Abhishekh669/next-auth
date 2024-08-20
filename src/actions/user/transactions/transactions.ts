@@ -1,11 +1,14 @@
 "use server"
+import { auth } from "@/auth";
 import { BankBalanceType } from "@/components/users/accounts/BankData";
 import { connectDB } from "@/lib/connectDB";
+import { sendMail } from "@/lib/mail";
 import { BankBalance } from "@/models/user/bankbalance";
 import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
 import { transBankDetail, TransBankDetails } from "@/types/bankdetail.types";
 import { FieldValues } from "react-hook-form";
+import { formatingDate } from "../../../../db";
 
 
 connectDB();
@@ -13,6 +16,7 @@ connectDB();
 export async function  createTransactions(data :FieldValues){
     if(data){
         try {
+            const user = await auth()
             const bankBalanceInfo : BankBalanceType[] = await BankBalance.find({userId : data.userId, bankDetailsId : data.bankDetailsId})
             if(!bankBalanceInfo ){
                 throw new Error("no bank exist")
@@ -27,12 +31,34 @@ export async function  createTransactions(data :FieldValues){
             console.log("this is the transData",transData);
             const savedData = await transData.save();
             if(!savedData){
-                console.log("iam here")
                 return {
                     error : "Failed to create the transaction"
                 }
             }
             console.log("this is the saved data",savedData)
+            const bankDetails = await BankDetail.findById({_id :  data.bankDetailsId})
+            console.log("this is  created date : ", data.createdAt)
+            const formatedDate = formatingDate(data.createdAt)
+            
+            
+            if(bankDetails){
+                await sendMail({
+                    to : bankDetails.bankEmail,
+                    name : user?.user?.name as string ,
+                    subject : "Bank Transaction",
+                    body : `
+                            <div>
+                                <div>
+                                Dear  <h5>${user?.user.name}
+                                </div>
+                                <br/>
+                                <div>
+                                    Your <strong>${bankBalanceInfo[0].bankAccount}</strong> has been debited by <strong>$${data.totalAmount}</strong> on <strong>${formatedDate}</strong>  
+                                </div>
+                            </div>
+                            `
+                })
+            }
             return {
                 message : "Successfully created transactions",
             }

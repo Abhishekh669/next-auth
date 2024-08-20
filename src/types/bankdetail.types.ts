@@ -4,6 +4,7 @@ export interface bankdetailtype{
     bank_name : string,
     bank_branch : string
     head_office : string
+    bankEmail : string
 }
 
 export interface transBankDetail{

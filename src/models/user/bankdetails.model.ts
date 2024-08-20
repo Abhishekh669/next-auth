@@ -17,6 +17,11 @@ const bankDetailSchema = new Schema({
      bank_branch : {
         type : String,
         required : true,
+     },
+
+     bankEmail : {
+        type : String, 
+        required : true
      }
 })
 

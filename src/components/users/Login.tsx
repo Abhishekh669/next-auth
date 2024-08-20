@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { SignInValidation } from "@/types/user.types";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 

@@ -25,6 +25,7 @@ interface BankDetail {
   bank_name: string;
   bank_branch: string;
   head_office: string;
+  bankEmail : string
 }
 
 function AccountPage({ user }: { user: any }) {
@@ -66,9 +67,10 @@ function AccountPage({ user }: { user: any }) {
         bank_name: data.bank_name,
         bank_branch: data.bank_branch.toLowerCase(),
         head_office: data.head_office,
+        bankEmail : data.bankEmail
       };
 
-      await server_bankDetails(newData); // Ensure server_bankDetails is awaited
+      server_bankDetails(newData); // Ensure server_bankDetails is awaited
       reset();
       setFormError(""); // Clear any previous errors
       setSubmitting(false);
@@ -184,6 +186,29 @@ function AccountPage({ user }: { user: any }) {
                   )}
                 </div>
               </div>
+
+              <div className="mb-4 relative flex flex-col gap-y-2">
+                <Label className="block uppercase tracking-wide text-green-600 text-[16px] font-bold mb-2">
+                  Bank Email : 
+                </Label>
+                <Input
+                type="email"
+                  placeholder="Email to connect bank"
+                  {...register("bankEmail", {
+                    required: "Please enter the emial you want to connect to bank",
+                   
+                  })}
+                  className="w-full p-3 border border-gray-300 rounded-[10px]"
+                />
+                <div className="absolute -bottom-7 left-2">
+                  {(
+                    <span className="text-red-500 text-sm">
+                      { errors.bankEmail && errors.bankEmail.message || "[ please enter valid email ]"}
+                    </span>
+                  )}
+                </div>
+              </div>
+              
               <SheetFooter>
                 <Button
                   size="sm"
