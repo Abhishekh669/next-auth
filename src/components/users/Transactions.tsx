@@ -112,23 +112,22 @@ function Transactions({ bankDetailsId, user }: any) {
 
   return (
     <div className="p-2">
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen} >
-      <div className="flex justify-between items-center">
-              <span className="text-[40px] font-bold bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px] bg-clip-text text-transparent filter drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-                Transactions
-              </span>
-              <span
-                onClick={() => {
-                  router.push("/transactions");
-                }}
-                className="text-white p-3 cursor-pointer rounded-full bg-red-600"
-              >
-                <MoveLeftIcon className="text-[20px]" />
-              </span>
-            </div>
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+        <div className="flex justify-between items-center">
+          <span className="text-[40px] font-bold bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px] bg-clip-text text-transparent filter drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+            Transactions
+          </span>
+          <span
+            onClick={() => {
+              router.push("/transactions");
+            }}
+            className="text-white p-3 cursor-pointer rounded-full bg-red-600"
+          >
+            <MoveLeftIcon className="text-[20px]" />
+          </span>
+        </div>
         <SheetTrigger asChild className="p-4 md:p-6 flex flex-col gap-y-6">
           <div className="w-full flex flex-col md:flex-row gap-y-8 md:justify-between">
-           
             <Button
               size={"sm"}
               className="text-white h-[50px] text-[20px] bg-gradient-to-t from-[#00D399] to-[#056817] rounded-[5px] hover:bg-green-500"

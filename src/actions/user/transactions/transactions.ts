@@ -1,10 +1,10 @@
 "use server"
+import { BankBalanceType } from "@/components/users/accounts/BankData";
 import { connectDB } from "@/lib/connectDB";
 import { BankBalance } from "@/models/user/bankbalance";
 import { BankDetail } from "@/models/user/bankdetails.model";
 import { Transaction } from "@/models/user/transactions.model";
 import { transBankDetail, TransBankDetails } from "@/types/bankdetail.types";
-import { Judson } from "next/font/google";
 import { FieldValues } from "react-hook-form";
 
 
@@ -13,9 +13,16 @@ connectDB();
 export async function  createTransactions(data :FieldValues){
     if(data){
         try {
-            console.log("this isthe data of the transaction in the create Transation",data)
-            
-            
+            const bankBalanceInfo : BankBalanceType[] = await BankBalance.find({userId : data.userId, bankDetailsId : data.bankDetailsId})
+            if(!bankBalanceInfo ){
+                throw new Error("no bank exist")
+            }
+            const prevBankBalance = parseFloat(bankBalanceInfo[0].bankBalance)
+            const currentBankBalance = prevBankBalance - parseFloat(data.totalAmount)
+            const newUpdatedBankBalance = await BankBalance.findByIdAndUpdate(bankBalanceInfo[0]._id, {bankBalance : String(currentBankBalance) }, {new : true})
+            if(!newUpdatedBankBalance){
+                throw new Error("Failed to update te bank balance")
+            }
             const transData = await new Transaction(data);
             console.log("this is the transData",transData);
             const savedData = await transData.save();
@@ -29,12 +36,9 @@ export async function  createTransactions(data :FieldValues){
             return {
                 message : "Successfully created transactions",
             }
-
-
-
-        } catch (error) {
+        } catch (error : any) {
             return {
-                error : "Failed to create the transatction"
+                error : error.message || "Failed to create the transatction"
             }
             
         }
