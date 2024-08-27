@@ -9,6 +9,7 @@ import { Transaction } from "@/models/user/transactions.model";
 import { transBankDetail, TransBankDetails } from "@/types/bankdetail.types";
 import { FieldValues } from "react-hook-form";
 import { formatingDate } from "../../../../db";
+import { json } from "stream/consumers";
 
 
 connectDB();
@@ -49,7 +50,7 @@ export async function  createTransactions(data :FieldValues){
                     body : `
                             <div>
                                 <div>
-                                Dear  <h5>${user?.user.name}
+                                Dear  <h5>${user?.user.name}</h5>
                                 </div>
                                 <br/>
                                 <div>
@@ -197,5 +198,21 @@ export async function transactionFromBankDetail(idData  :  transBankDetail){
 
 
 export async function getTransEachField(data : {userId : string, bankDetailsId : string}){
+
+    try {
+        const allTrans = await Transaction.find({userId : data.userId, bankDetailsId : data.bankDetailsId})
+        return {
+            message : 'Successfully got  the data ',
+            data : JSON.stringify(allTrans)
+        }
+        
+
+        
+    } catch (error: any) {
+        return {
+            error : error.message || "failedto get the data"
+        }
+        
+    }
     
 }
